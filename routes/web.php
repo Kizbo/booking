@@ -15,12 +15,16 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome');
 
-Route::view('dashboard', 'dashboard')
-    ->middleware(['auth', 'verified'])
-    ->name('dashboard');
+/** ADMIN PANEL */
+Route::prefix("admin")->middleware(['auth', 'verified'])->name("admin.")->group(function (){
 
-Route::view('profile', 'profile')
-    ->middleware(['auth'])
-    ->name('profile');
+    /** management routes */
+    Route::view('dashboard', 'dashboard')->name('dashboard');
+
+    /** personal routes */
+    Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
+
+
+});
 
 require __DIR__.'/auth.php';
