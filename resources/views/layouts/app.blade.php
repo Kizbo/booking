@@ -15,16 +15,18 @@
         @vite(['resources/css/app.css', 'resources/js/app.js'])
     </head>
     <body class="font-sans antialiased">
-        <div class="min-h-screen bg-gray-100 ">
-            <livewire:layout.navigation />
+        <div class="flex w-full">
+            <livewire:layout.drawer />
+            <div class="min-h-screen bg-slate-200 grow">
+                <livewire:layout.navigation />
 
-            <!-- Page Content -->
-            <main class="flex w-full">
-                <livewire:layout.drawer />
-                <div class="px-4 grow">
-                    {{ $slot }}
-                </div>
-            </main>
+                <!-- Page Content -->
+                <main class="flex w-full">
+                    <div class="px-4 grow">
+                        {{ $slot }}
+                    </div>
+                </main>
+            </div>
         </div>
     </body>
 </html>

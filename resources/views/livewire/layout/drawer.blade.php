@@ -16,11 +16,33 @@ new class extends Component
     }
 }; ?>
 
-<div x-data="{ open: window.innerWidth >= 976 }" @toggle-drawer.window="open = !open" :class="{'w-64': open, 'w-0': !open}" class="bg-white h-[calc(100vh-80px)] transition-all w-64 overflow-hidden">
-    <div class="pt-2 pb-3 space-y-1">
-        <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
-            {{ __('Dashboard') }}
-        </x-responsive-nav-link>
+<div x-data="{ open: window.innerWidth >= 976 }" @toggle-drawer.window="open = !open" :class="{'left-0 lg:w-64': open, '-left-64 lg:w-0': !open}" class="fixed top-0 -left-64 h-screen bg-gray-900 transition-all w-64 overflow-hidden lg:sticky">
+    <div class="absolute right-0 top-0 flex items-center lg:hidden">
+        <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 :text-gray-400 hover:bg-gray-100 :bg-gray-900 focus:outline-none focus:bg-gray-100 :bg-gray-900 focus:text-gray-500 :text-gray-400 transition duration-150 ease-in-out">
+            {{ __("Zamknij") }}
+        </button>
+    </div>
+
+    <div class="flex w-full items-center justify-center py-6">
+        <a href="{{ route('admin.dashboard') }}" wire:navigate class="flex items-center gap-x-1">
+            <x-application-logo class="h-10 w-10" />
+            <span class="hidden sm:inline text-sm text-white">Booking Assistant</span>
+        </a>
+    </div>
+
+    <div class="flex flex-col gap-y-4 text-white px-3">
+        <p class="text-xs text-gray-500 pl-2">MENU</p>
+
+        <div>
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="false" wire:navigate>
+                {{ __('Dashboard') }}
+            </x-responsive-nav-link>
+        </div>
+
     </div>
 </div>
 

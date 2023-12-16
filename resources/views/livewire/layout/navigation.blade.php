@@ -16,7 +16,7 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: window.innerWidth >= 976 }" x-init="$watch('open', () => $dispatch('toggle-drawer'))" class="bg-gray-800 border-b border-gray-100 ">
+<nav x-data="{ open: window.innerWidth >= 976 }" x-init="$watch('open', () => $dispatch('toggle-drawer'))" class="bg-white border-b border-gray-100 ">
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center h-20">
@@ -30,21 +30,11 @@ new class extends Component
                 </button>
             </div>
 
-            <div class="flex md:mx-4">
-                <!-- Logo -->
-                <div class="shrink-0 flex items-center">
-                    <a href="{{ route('admin.dashboard') }}" wire:navigate class="flex items-center gap-x-1">
-                        <x-application-logo class="h-10 w-10" />
-                        <span class="text-sm text-white">Booking Assistant</span>
-                    </a>
-                </div>
-            </div>
-
             <!-- Settings Dropdown -->
             <div class="flex sm:items-center ml-auto">
                 <x-dropdown-menu align="right" width="48">
                     <x-slot name="trigger">
-                        <button class="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500  bg-white  hover:text-gray-700 :text-gray-300 focus:outline-none transition ease-in-out duration-150">
+                        <button class="inline-flex items-center px-3 py-2 border border-slate-300 text-sm leading-4 font-medium rounded-md text-gray-500  bg-white  hover:text-gray-700 :text-gray-300 focus:outline-none transition ease-in-out duration-150">
                             <div x-data="{ name: '{{ auth()->user()->name }}' }" x-text="name" x-on:profile-updated.window="name = $event.detail.name"></div>
 
                             <div class="ms-1">
@@ -57,13 +47,13 @@ new class extends Component
 
                     <x-slot name="content">
                         <x-dropdown-link :href="route('admin.profile')" wire:navigate>
-                            {{ __('Profile') }}
+                            {{ __('auth.profile') }}
                         </x-dropdown-link>
 
                         <!-- Authentication -->
                         <button wire:click="logout" class="w-full text-start">
                             <x-dropdown-link>
-                                {{ __('Log Out') }}
+                                {{ __('auth.log-out') }}
                             </x-dropdown-link>
                         </button>
                     </x-slot>
