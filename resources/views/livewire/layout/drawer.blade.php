@@ -12,7 +12,7 @@ new class extends Component
     {
         $logout();
 
-        $this->redirect('/', navigate: true);
+        $this->redirect('/');
     }
 }; ?>
 
@@ -24,7 +24,7 @@ new class extends Component
     </div>
 
     <div class="flex w-full items-center justify-center py-6">
-        <a href="{{ route('admin.dashboard') }}" wire:navigate class="flex items-center gap-x-1">
+        <a href="{{ route('admin.dashboard') }}"  class="flex items-center gap-x-1">
             <x-application-logo class="h-10 w-10" />
             <span class="hidden sm:inline text-sm text-white">Booking Assistant</span>
         </a>
@@ -34,11 +34,11 @@ new class extends Component
         <p class="text-xs text-gray-500 pl-2">MENU</p>
 
         <div>
-            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" wire:navigate>
+            <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" >
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('admin.workers')" :active="request()->routeIs('admin.workers')" wire:navigate>
+            <x-responsive-nav-link :href="route('admin.workers')" :active="request()->routeIs('admin.workers')" >
                 {{ __('messages.workers') }}
             </x-responsive-nav-link>
         </div>

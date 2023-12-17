@@ -34,5 +34,7 @@
                     </main>
                 </div>
             </div>
+
+            @stack("body-scripts")
     </body>
 </html>

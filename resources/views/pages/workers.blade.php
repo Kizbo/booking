@@ -17,10 +17,6 @@
 @endphp
 
 <x-app-layout>
-    @push("head-scripts")
-        @vite("resources/js/admin.js")
-    @endpush
-
     <x-slot name="header">
         {{ __("messages.workers") }}
     </x-slot>
@@ -36,4 +32,8 @@
             </div>
         </div>
     </div>
+
+    @push("body-scripts")
+        @vite("resources/js/admin.js")
+    @endpush
 </x-app-layout>
