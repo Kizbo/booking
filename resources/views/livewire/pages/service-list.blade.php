@@ -6,5 +6,5 @@
     <div id="calendar"></div>
 @stop
 @section('javascript')
-    <script type="module" src="{{ asset('js/calendar.js') }}"></script>
+    @vite(['resources/js/booking-calendar.js'])
 @stop
