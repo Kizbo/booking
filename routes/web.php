@@ -13,18 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'welcome');
+Route::view('/', 'livewire/pages/service-list');
 
 /** ADMIN PANEL */
-Route::prefix("admin")->middleware(['auth', 'verified'])->name("admin.")->group(function (){
+Route::prefix("admin")->middleware(['auth', 'verified'])->name("admin.")->group(function () {
 
     /** management routes */
     Route::view('dashboard', 'dashboard')->name('dashboard');
 
     /** personal routes */
     Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
-
-
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
