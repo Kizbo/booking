@@ -9,6 +9,6 @@ export default defineConfig({
         }),
     ],
     postcss: {
-        plugins: [postcssNesting],
+        plugins: [],
     },
 });
