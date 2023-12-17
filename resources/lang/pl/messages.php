@@ -2,5 +2,6 @@
 
 return [
     'save' => 'Zapisz',
-    'saved' => 'Zapisano.'
+    'saved' => 'Zapisano.',
+    'workers' => 'Pracownicy'
 ];

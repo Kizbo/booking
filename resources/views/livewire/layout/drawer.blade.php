@@ -38,8 +38,8 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link :href="route('admin.dashboard')" :active="false" wire:navigate>
-                {{ __('Dashboard') }}
+            <x-responsive-nav-link :href="route('admin.workers')" :active="request()->routeIs('admin.workers')" wire:navigate>
+                {{ __('messages.workers') }}
             </x-responsive-nav-link>
         </div>
 

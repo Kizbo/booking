@@ -13,6 +13,8 @@
 
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
+
+
     </head>
     <body class="font-sans antialiased">
         <div class="flex w-full">
@@ -23,6 +25,10 @@
                 <!-- Page Content -->
                 <main class="flex w-full">
                     <div class="px-4 grow">
+                        @if(!empty($header))
+                            <h1 class="w-full text-3xl mx-auto sm:px-6 lg:px-8 mt-8">{{ $header }}</h1>
+                        @endif
+
                         {{ $slot }}
                     </div>
                 </main>

@@ -20,6 +20,7 @@ Route::prefix("admin")->middleware(['auth', 'verified'])->name("admin.")->group(
 
     /** management routes */
     Route::view('dashboard', 'dashboard')->name('dashboard');
+    Route::view('workers', 'workers')->name('workers');
 
     /** personal routes */
     Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
