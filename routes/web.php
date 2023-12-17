@@ -16,14 +16,15 @@ use Illuminate\Support\Facades\Route;
 Route::view('/', 'livewire/pages/service-list');
 
 /** ADMIN PANEL */
-Route::prefix("admin")->middleware(['auth', 'verified'])->name("admin.")->group(function () {
+Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () {
 
     /** management routes */
-    Route::view('dashboard', 'dashboard')->name('dashboard');
-    Route::view('workers', 'workers')->name('workers');
+    Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+    Route::view('workers', 'pages.workers')->name('workers');
+    Route::view("workers/{id}", 'pages.workers.edit')->name('workers.edit');
 
     /** personal routes */
-    Route::view('profile', 'profile')->middleware(['auth'])->name('profile');
+    Route::view('profile', 'pages.profile')->middleware(['auth'])->name('profile');
 });
 
 require __DIR__ . '/auth.php';

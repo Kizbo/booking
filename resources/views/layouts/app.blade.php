@@ -14,25 +14,25 @@
         <!-- Scripts -->
         @vite(['resources/css/app.css', 'resources/js/app.js'])
 
-
+        @stack("head-scripts")
     </head>
     <body class="font-sans antialiased">
-        <div class="flex w-full">
-            <livewire:layout.drawer />
-            <div class="min-h-screen bg-slate-200 grow">
-                <livewire:layout.navigation />
+            <div class="flex max-w-full">
+                <livewire:layout.drawer />
+                <div class="bg-slate-200 grow max-w-full">
+                    <livewire:layout.navigation />
 
-                <!-- Page Content -->
-                <main class="flex w-full">
-                    <div class="px-4 grow">
-                        @if(!empty($header))
-                            <h1 class="w-full text-3xl mx-auto sm:px-6 lg:px-8 mt-8">{{ $header }}</h1>
-                        @endif
+                    <!-- Page Content -->
+                    <main class="flex w-full">
+                        <div class="px-4 grow max-w-full">
+                            @if(!empty($header))
+                                <h1 class="w-full text-3xl mx-auto sm:px-6 lg:px-8 mt-8">{{ $header }}</h1>
+                            @endif
 
-                        {{ $slot }}
-                    </div>
-                </main>
+                            {{ $slot }}
+                        </div>
+                    </main>
+                </div>
             </div>
-        </div>
     </body>
 </html>

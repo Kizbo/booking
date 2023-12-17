@@ -15,6 +15,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "simple-datatables": "^9.0.0",
         "@daypilot/daypilot-lite-javascript": "^3.19.0"
     }
 }

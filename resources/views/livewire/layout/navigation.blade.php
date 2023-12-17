@@ -16,16 +16,16 @@ new class extends Component
     }
 }; ?>
 
-<nav x-data="{ open: window.innerWidth >= 976 }" x-init="$watch('open', () => $dispatch('toggle-drawer'))" class="bg-white border-b border-gray-100 ">
+<nav x-data="Navigation()" @toggle-drawer-from-drawer.window="open = !open;" class="bg-white border-b border-gray-100 ">
     <!-- Primary Navigation Menu -->
     <div class="mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex items-center h-20">
             <!-- Hamburger -->
             <div class="flex items-center">
-                <button @click="open = ! open" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 :text-gray-400 hover:bg-gray-100 :bg-gray-900 focus:outline-none focus:bg-gray-100 :bg-gray-900 focus:text-gray-500 :text-gray-400 transition duration-150 ease-in-out">
+                <button @click="toggleDrawer($dispatch)" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 :text-gray-400 hover:bg-gray-100 :bg-gray-900 focus:outline-none focus:bg-gray-100 :bg-gray-900 focus:text-gray-500 :text-gray-400 transition duration-150 ease-in-out">
                     <svg class="h-6 w-6" stroke="currentColor" fill="none" viewBox="0 0 24 24">
-                        <path :class="{'hidden': open, 'inline-flex': ! open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-                        <path :class="{'hidden': ! open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        <path :class="{'hidden': open, 'inline-flex': !open }" class="inline-flex" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+                        <path :class="{'hidden': !open, 'inline-flex': open }" class="hidden" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
                     </svg>
                 </button>
             </div>
@@ -62,3 +62,15 @@ new class extends Component
         </div>
     </div>
 </nav>
+
+<script>
+    function Navigation(){
+        return {
+            open: window.innerWidth >= 976,
+            toggleDrawer($dispatch){
+                this.open = !this.open;
+                $dispatch('toggle-drawer')
+            }
+        }
+    }
+</script>
