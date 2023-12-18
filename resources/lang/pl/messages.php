@@ -2,6 +2,7 @@
 
 return [
     'save' => 'Zapisz',
+    'add-entity' => 'Dodaj',
     'saved' => 'Zapisano.',
     'workers' => 'Pracownicy',
     'workers-list' => "Lista pracowników",
@@ -12,4 +13,9 @@ return [
     'no-rows' => 'Brak rekordów do wyświetlenia',
     'showing-records-from-to' => 'Wyświetlono od {start} do {end} rekordu z {rows}',
     'no-results' => 'Brak wyników dla wyszukiwania',
+    "update-worker" => "Zaktualizuj pracownika",
+    'create-worker' => "Stwórz nowego pracownika",
+    'update-worker-services' => 'Zaktualizuj usługi pracownika',
+    'name' => "Imię i nazwisko",
+    'login' => 'Login'
 ];

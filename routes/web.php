@@ -20,7 +20,10 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
 
     /** management routes */
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
+
+    /** workers management */
     Route::view('workers', 'pages.workers')->name('workers');
+    Route::view('workers/new', 'pages.workers.create')->name('workers.create');
     Route::view("workers/{id}", 'pages.workers.edit')->name('workers.edit');
 
     /** personal routes */
