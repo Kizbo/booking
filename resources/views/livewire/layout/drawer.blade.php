@@ -38,8 +38,16 @@ new class extends Component
                 {{ __('Dashboard') }}
             </x-responsive-nav-link>
 
+            <x-responsive-nav-link :href="route('admin.services')" :active="request()->routeIs('admin.services')" >
+                {{ __('messages.services') }}
+            </x-responsive-nav-link>
+
             <x-responsive-nav-link :href="route('admin.workers')" :active="request()->routeIs('admin.workers')" >
                 {{ __('messages.workers') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('admin.settings')" :active="request()->routeIs('admin.settings')" >
+                {{ __('messages.settings') }}
             </x-responsive-nav-link>
         </div>
 
