@@ -11,14 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('employees', function (Blueprint $table) {
+        Schema::create('user_availability', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('last_name');
-            $table->string('username'); // first_name.last_name[index if req]
-            $table->string('password');
-            $table->string('phone_number');
-            $table->boolean('is_admin');
+            $table->foreignId('user_id')->constrained();
+            $table->date('available_date');
+            $table->time('available_start_time');
+            $table->time('available_end_time');
             $table->timestamps();
         });
     }
@@ -28,7 +26,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employees');
+        Schema::dropIfExists('employee_availability');
     }
 };
 
