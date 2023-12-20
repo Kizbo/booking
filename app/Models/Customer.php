@@ -3,21 +3,26 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
 class Customer extends Model
 {
-    protected $table = 'customers';
+
     protected $fillable = [
         'first_name',
         'last_name',
         'phone_number'
     ];
-    public $timestamps = true;
 
-    public function reservations() : HasMany
+    public function reservation(): HasOne
     {
-        return $this->hasMany(Reservation::class);
+        return $this->hasOne(Reservation::class);
+    }
+
+    public function user(): HasOneThrough
+    {
+        return $this->hasOneThrough(User::class, Reservation::class);
     }
 }
 

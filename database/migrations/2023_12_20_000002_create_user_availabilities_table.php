@@ -11,12 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('user_availability', function (Blueprint $table) {
+        Schema::create('user_availabilities', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->date('available_date');
-            $table->time('available_start_time');
-            $table->time('available_end_time');
+            $table->dateTime('available_start_datetime');
+            $table->dateTime('available_end_datetime');
             $table->timestamps();
         });
     }
@@ -26,7 +25,7 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('employee_availability');
+        Schema::dropIfExists('user_availability');
     }
 };
 

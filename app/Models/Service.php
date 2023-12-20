@@ -8,23 +8,21 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Service extends Model
 {
-    protected $table = 'services';
     protected $fillable = [
-        'service_name',
-        'service_description',
-        'service_duration',
-        'service_price',
+        'name',
+        'description',
+        'duration',
+        'price',
     ];
-    public $timestamps = true;
 
-    public function reservations() : HasMany
+    public function reservations(): HasMany
     {
         return $this->hasMany(Reservation::class);
     }
 
-    public function employees() : BelongsToMany
+    public function users(): BelongsToMany
     {
-        return $this->belongsToMany(Employee::class, 'employees_services');
+        return $this->belongsToMany(User::class);
     }
 }
 
