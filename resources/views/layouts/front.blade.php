@@ -1,7 +1,7 @@
 <html>
 
 <head>
-
+    @livewireStyles
 </head>
 
 <body>
@@ -15,6 +15,7 @@
 
     </footer>
     @stack('body-scripts')
+    @livewireScripts
 </body>
 
 </html>
