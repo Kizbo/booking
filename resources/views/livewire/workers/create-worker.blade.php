@@ -3,12 +3,38 @@
 use Livewire\Volt\Component;
 
 new class extends Component {
+
+    public string $firstname;
+
+    public string $lastname;
+
+    public string $email;
+
+    public string $phone_number;
+
+
     public function createWorker(): void
     {
-        //create new worker
+        $this->authorize("manipulate", \App\Models\User::class);
 
-        $this->redirect(route("workers.edit", ['id' => 1]));
+        $this->validate([
+            "firstname" => "required",
+            "lastname" => "required",
+            "email" => "email|required|unique:App\Models\User,email",
+            "phone_number" => "required"
+        ]);
+
+        //create new worker
+        $user = new \App\Models\User;
+        $user->password = Hash::make(Str::random(15));
+        $user->is_admin = false;
+
+        $user->fill($this->all());
+        $user->save();
+
+        $this->redirect(route("admin.workers.edit", ['id' => $user->id]));
     }
+
 }; ?>
 
 <section>
@@ -20,9 +46,15 @@ new class extends Component {
 
     <form wire:submit="createWorker" class="mt-6 space-y-6">
         <div>
-            <x-input-label for="name" :value="__('messages.name')" />
-            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" autocomplete="" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="firstname" :value="__('profile.first-name')" />
+            <x-text-input wire:model="firstname" id="firstname" name="firstname" type="text" class="mt-1 block w-full" autocomplete="given-name" />
+            <x-input-error :messages="$errors->get('firstname')" class="mt-2" />
+        </div>
+
+        <div>
+            <x-input-label for="lastname" :value="__('profile.last-name')" />
+            <x-text-input wire:model="lastname" id="lastname" name="lastname" type="text" class="mt-1 block w-full" autocomplete="family-name" />
+            <x-input-error :messages="$errors->get('lastname')" class="mt-2" />
         </div>
 
         <div>
@@ -32,9 +64,9 @@ new class extends Component {
         </div>
 
         <div>
-            <x-input-label for="login" :value="__('messages.login')" />
-            <x-text-input wire:model="login" id="login" name="login" type="text" class="mt-1 block w-full" autocomplete="login" />
-            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+            <x-input-label for="phone_number" :value="__('profile.phone-number')" />
+            <x-text-input wire:model="phone_number" id="phone_number" name="phone_number" type="text" class="mt-1 block w-full" autocomplete="tel" />
+            <x-input-error :messages="$errors->get('phone_number')" class="mt-2" />
         </div>
 
         <div class="flex items-center gap-4">

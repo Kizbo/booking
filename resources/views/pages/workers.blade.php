@@ -1,21 +1,3 @@
-@php
-    $mockHeadings = ["Imię i nazwisko", "Login", "Usługi", "Akcje"];
-
-    $mockData = [
-        ["Anna Nowak", "an@booking.pl", "Strzyżenie męskie"],
-        ["Jan Kowalski", "jk@booking.pl", "Manicure, Prostowanie włosów"]
-    ];
-
-    $mockActions = [
-        [
-            "type" => "primary",
-            "text" => "Edytuj",
-            "name" => "admin.workers.edit",
-            "data" => [['id' => 1], ['id' => 2]]
-        ]
-    ]
-@endphp
-
 <x-app-layout>
     <x-slot name="header">
         {{ __("messages.workers") }}
@@ -30,7 +12,7 @@
             <div class="bg-white shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 w-full">
                     <x-admin.section-title>{{ __("messages.workers-list") }}</x-admin.section-title>
-                    <x-table :data="$mockData" :headings="$mockHeadings" :actions="$mockActions" />
+                    <x-table :data="$tableData" :headings="$tableHeaders" :actions="$tableActions" />
                 </div>
             </div>
         </div>

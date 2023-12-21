@@ -22,5 +22,7 @@ return [
     'create-service' => 'Stwórz nową usługę',
     'services-list' => "Lista usług",
     "settings" => "Ustawienia",
-    'settings-general' => "Ustawienia ogólne"
+    'settings-general' => "Ustawienia ogólne",
+    "actions" => "Akcje",
+    "edit" => "Edytuj"
 ];

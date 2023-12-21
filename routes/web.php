@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\WorkersController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -23,9 +24,9 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::view("settings", "pages.settings")->name("settings");
 
     /** workers management */
-    Route::view('workers', 'pages.workers')->name('workers');
-    Route::view('workers/new', 'pages.workers.create')->name('workers.create');
-    Route::view("workers/{id}", 'pages.workers.edit')->name('workers.edit');
+    Route::get('workers', [WorkersController::class, "list"])->can("manipulate", \App\Models\User::class)->name('workers');
+    Route::get('workers/new', [WorkersController::class, "create"])->name('workers.create');
+    Route::get("workers/{id}", [WorkersController::class, "edit"])->name('workers.edit');
 
     /** services management */
     Route::view('services', 'pages.services')->name('services');
