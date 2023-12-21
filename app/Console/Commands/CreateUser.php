@@ -8,14 +8,14 @@ use Illuminate\Contracts\Console\PromptsForMissingInput;
 use Illuminate\Support\Facades\Hash;
 use function Laravel\Prompts\{confirm, password, text};
 
-class CreateAdmin extends Command implements PromptsForMissingInput
+class CreateUser extends Command implements PromptsForMissingInput
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'booking:create-admin {email} {phone_number} {firstname} {lastname} {password} {is_admin}';
+    protected $signature = 'booking:make:user {email} {phone_number} {firstname} {lastname} {password} {is_admin}';
 
     /**
      * The console command description.

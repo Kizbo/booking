@@ -1,30 +1,23 @@
 <?php
 
 use Livewire\Volt\Component;
+use App\Models\User;
+use App\Livewire\Forms\UserForm;
 
 new class extends Component {
 
-    public string $name;
-    public string $email;
-    public string $login;
+    public UserForm $form;
+
+    public function mount($id): void
+    {
+        $this->form->setUser(User::findOrFail($id));
+    }
 
     public function updateWorker(): void
     {
-        try {
-            $validated = $this->validate([
-                'name' => ['required', 'string'],
-                'email' => ['required', 'email'],
-                'login' => ['required', 'string']
-            ]);
-        } catch (ValidationException $e) {
-            $this->reset();
+        $this->authorize("manipulate", User::class);
 
-            throw $e;
-        }
-
-        //update worker
-
-        //reset fields
+        $this->form->update();
 
         //dispatch success event
         $this->dispatch("worker-updated");
@@ -44,21 +37,35 @@ new class extends Component {
 
     <form wire:submit="updateWorker" class="mt-6 space-y-6">
         <div>
-            <x-input-label for="name" :value="__('messages.name')" />
-            <x-text-input wire:model="name" id="name" name="name" type="text" class="mt-1 block w-full" autocomplete="" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="firstname" :value="__('profile.first-name')"/>
+            <x-text-input wire:model="form.firstname" id="firstname" name="firstname" type="text"
+                          class="mt-1 block w-full" autocomplete="given-name"
+            />
+            <x-input-error :messages="$errors->get('form.firstname')" class="mt-2"/>
         </div>
 
         <div>
-            <x-input-label for="email" :value="__('auth.email-field')" />
-            <x-text-input wire:model="email" id="email" name="email" type="email" class="mt-1 block w-full" autocomplete="email" />
-            <x-input-error :messages="$errors->get('email')" class="mt-2" />
+            <x-input-label for="lastname" :value="__('profile.last-name')"/>
+            <x-text-input wire:model="form.lastname" id="lastname" name="lastname" type="text" class="mt-1 block w-full"
+                          autocomplete="family-name"
+            />
+            <x-input-error :messages="$errors->get('form.lastname')" class="mt-2"/>
         </div>
 
         <div>
-            <x-input-label for="login" :value="__('messages.login')" />
-            <x-text-input wire:model="login" id="login" name="login" type="text" class="mt-1 block w-full" autocomplete="login" />
-            <x-input-error :messages="$errors->get('login')" class="mt-2" />
+            <x-input-label for="email" :value="__('auth.email-field')"/>
+            <x-text-input wire:model="form.email" id="email" name="email" type="email" class="mt-1 block w-full"
+                          autocomplete="email"
+            />
+            <x-input-error :messages="$errors->get('form.email')" class="mt-2"/>
+        </div>
+
+        <div>
+            <x-input-label for="phone_number" :value="__('profile.phone-number')"/>
+            <x-text-input wire:model="form.phone_number" id="phone_number" name="phone_number" type="text"
+                          class="mt-1 block w-full" autocomplete="tel"
+            />
+            <x-input-error :messages="$errors->get('form.phone_number')" class="mt-2"/>
         </div>
 
         <div class="flex items-center gap-4">
