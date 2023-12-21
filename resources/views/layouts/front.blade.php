@@ -9,12 +9,12 @@
 
     </header>
     <main>
-        @yield('content')
+        {{ $slot }}
     </main>
     <footer>
 
     </footer>
-    @yield('javascript')
+    @stack('body-scripts')
 </body>
 
 </html>
