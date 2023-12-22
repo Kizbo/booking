@@ -38,7 +38,7 @@ return [
     'date' => 'Pole :attribute musi być prawidłową datą.',
     'date_equals' => 'Pole :attribute musi być datą równą :date.',
     'date_format' => 'Pole :attribute musi mieć format :format.',
-    'decimal' => 'Pole :attribute musi mieć :decimal miejsc po przecinku.',
+    'decimal' => 'Pole :attribute musi mieć :decimal miejsca po przecinku.',
     'declined' => 'Pole :attribute musi być odrzucone.',
     'declined_if' => 'Pole :attribute musi być odrzucone, gdy :other jest :value.',
     'different' => 'Pole :attribute i :other muszą być różne.',

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\WorkersController;
 use Illuminate\Support\Facades\Route;
 
@@ -24,14 +25,19 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::view("settings", "pages.settings")->name("settings");
 
     /** workers management */
-    Route::get('workers', [WorkersController::class, "list"])->can("manipulate", \App\Models\User::class)->name('workers');
-    Route::get('workers/new', [WorkersController::class, "create"])->name('workers.create');
-    Route::get("workers/{id}", [WorkersController::class, "edit"])->name('workers.edit');
+    Route::middleware("can:manipulate,".\App\Models\User::class)->group(function (){
+        Route::get('workers', [WorkersController::class, "list"])->name('workers');
+        Route::get('workers/new', [WorkersController::class, "create"])->name('workers.create');
+        Route::get("workers/{id}", [WorkersController::class, "edit"])->name('workers.edit');
+    });
 
     /** services management */
-    Route::view('services', 'pages.services')->name('services');
-    Route::view('services/new', 'pages.services.create')->name('services.create');
-    Route::view("services/{id}", 'pages.services.edit')->name('services.edit');
+    Route::middleware("can:manipulate,".\App\Models\Service::class)->group(function (){
+        Route::get('services', [ServicesController::class, "list"])->name('services');
+        Route::get('services/new', [ServicesController::class, "create"])->name('services.create');
+        Route::get("services/{id}", [ServicesController::class, "edit"])->name('services.edit');
+    });
+
 
     /** personal routes */
     Route::view('profile', 'pages.profile')->middleware(['auth'])->name('profile');

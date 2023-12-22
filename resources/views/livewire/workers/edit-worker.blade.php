@@ -6,11 +6,14 @@ use App\Livewire\Forms\UserForm;
 
 new class extends Component {
 
+    public User $user;
+
     public UserForm $form;
 
     public function mount($id): void
     {
-        $this->form->setUser(User::findOrFail($id));
+        $this->user = User::findOrFail($id);
+        $this->form->setUser($this->user);
     }
 
     public function updateWorker(): void
@@ -31,7 +34,7 @@ new class extends Component {
 <section>
     <header>
         <h2 class="text-lg font-medium text-gray-900 ">
-            {{ __('messages.update-worker') }}
+            {{ __('messages.update-worker') }} "{{ $user->firstname }} {{ $user->lastname }}" (#{{ $user->id }})
         </h2>
     </header>
 

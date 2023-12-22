@@ -16,7 +16,6 @@ return [
     "update-worker" => "Zaktualizuj pracownika",
     'create-worker' => "Stwórz nowego pracownika",
     'update-worker-services' => 'Zaktualizuj usługi pracownika',
-    'name' => "Imię i nazwisko",
     'login' => 'Login',
     'services' => "Usługi",
     'create-service' => 'Stwórz nową usługę',
@@ -24,5 +23,9 @@ return [
     "settings" => "Ustawienia",
     'settings-general' => "Ustawienia ogólne",
     "actions" => "Akcje",
-    "edit" => "Edytuj"
+    "edit" => "Edytuj",
+    'name' => "Nazwa",
+    "price" => "Cena",
+    "duration" => "Długość",
+    'description' => "Opis",
 ];
