@@ -13,6 +13,11 @@ new class extends Component {
 
         $service = $this->form->store();
 
+        session()->flash("message", [
+            'type' => 'success',
+            'text' => __("messages.added-service"),
+        ]);
+
         $this->redirect(route("admin.services.edit", ['id' => $service->id]));
     }
 

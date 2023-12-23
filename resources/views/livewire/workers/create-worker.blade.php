@@ -13,6 +13,11 @@ new class extends Component {
 
         $user = $this->form->store();
 
+        session()->flash("message", [
+            'type' => 'success',
+            'text' => __("messages.added-worker"),
+        ]);;
+
         $this->redirect(route("admin.workers.edit", ['id' => $user->id]));
     }
 

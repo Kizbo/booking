@@ -28,4 +28,6 @@ return [
     "price" => "Cena",
     "duration" => "Długość",
     'description' => "Opis",
+    "added-worker" => "Dodano nowego pracownika",
+    "added-service" => "Dodano nową usługę"
 ];
