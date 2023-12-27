@@ -1,4 +1,4 @@
-<div>
+<div class="m-1">
     <input type="text" wire:model="searchStr">
     <button type="button" wire:click="search">ser</button>
     @foreach ($services as $key => $service)

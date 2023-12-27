@@ -3,6 +3,7 @@
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\WorkersController;
 use Illuminate\Support\Facades\Route;
+use App\Livewire\Pages\ServiceList;
 
 /*
 |--------------------------------------------------------------------------
@@ -15,7 +16,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::view('/', 'livewire/pages/service-list');
+Route::get('/', ServiceList::class);
 
 /** ADMIN PANEL */
 Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () {
