@@ -25,3 +25,7 @@
         }
     }
 }
+
+.bg-primary-gradient {
+    @apply bg-gradient-to-t from-slate-500 to-primary;
+}
