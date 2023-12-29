@@ -15,6 +15,7 @@
     <footer>
 
     </footer>
+    @livewire('wire-elements-modal')
     @stack('body-scripts')
     @livewireScripts
 </body>

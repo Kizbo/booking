@@ -25,7 +25,6 @@
             <livewire:pages.front.service-single :$service :$key />
         @endforeach
     </div>
-    <x-modal :name="'book'">Content</x-modal>
 </div>
 
 @push('body-scripts')

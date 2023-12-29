@@ -5,12 +5,17 @@ use App\Models\Service;
 
 new class extends Component {
     public Service $service;
+
+    public function setService() {
+        $this->dispatch('set-service', service: $this->service);
+        return $this->service->name;
+    }
 }; ?>
 
 <div class="flex flex-col py-3 pl-3 pr-6 my-3 ml-3 border-r border-black">
     <div class="flex justify-between">
         <h2 class="text-lg font-bold">{{ $service->name }}</h2>
-        <button type="button" @click="$dispatch('open-modal', 'book')" class="flex items-center justify-center bg-black rounded-full w-7 h-7">
+        <button wire:click="$dispatch('openModal', { component: 'components.book-service', arguments: { service: {{ $service }} } })" type="button" class="flex items-center justify-center bg-black rounded-full w-7 h-7">
             <x-fas-calendar-plus class="w-3 fill-white" />
         </button>
     </div>
