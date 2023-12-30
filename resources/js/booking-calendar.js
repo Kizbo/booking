@@ -1,6 +1,61 @@
 import "./bootstrap.js";
-
 import { Calendar } from "fullcalendar";
+import moment from "moment";
+
+moment.updateLocale("pl", {
+    months: [
+        "Styczeń",
+        "Luty",
+        "Marzec",
+        "Kwiecień",
+        "Maj",
+        "Czerwiec",
+        "Lipiec",
+        "Sierpień",
+        "Wrzesień",
+        "Październik",
+        "Listopad",
+        "Grudzień",
+    ],
+    monthsShort: [
+        "Sty",
+        "Lut",
+        "Mar",
+        "Kwi",
+        "Maj",
+        "Cze",
+        "Lip",
+        "Sie",
+        "Wrz",
+        "Paź",
+        "Lis",
+        "Gru",
+    ],
+    weekdays: [
+        "Niedziela",
+        "Poniedziałek",
+        "Wtorek",
+        "Środa",
+        "Czwartek",
+        "Piątek",
+        "Sobota",
+    ],
+    weekdaysShort: ["Niedz", "Pon", "Wt", "Śr", "Czw", "Pt", "Sob"],
+    weekdaysMin: ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "So"],
+    week: {
+        dow: 1, // Monday is the first day of the week.
+    },
+    buttonText: {
+        today: "Dziś",
+        month: "Miesiąc",
+        week: "Tydzień",
+        day: "Dzień",
+        list: "Lista",
+    },
+    allDayText: "Cały dzień",
+    eventLimitText: "więcej",
+    noEventsMessage: "Brak wydarzeń do wyświetlenia",
+});
 
 document.addEventListener("DOMContentLoaded", function () {
     const calendarEl = document.getElementById("calendar");

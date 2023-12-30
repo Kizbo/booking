@@ -10,7 +10,7 @@ use App\Models\Service;
 class ServiceList extends Component
 {
     public $services;
-    public string $searchStr;
+    public string $searchStr = "";
 
     public function mount()
     {

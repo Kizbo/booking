@@ -28,6 +28,5 @@
 </div>
 
 @push('body-scripts')
-    @vite(['resources/js/fullcalendar-locale/pl.js'])
     {{-- @vite(['resources/js/booking-calendar.js']) --}}
 @endpush
