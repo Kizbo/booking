@@ -29,5 +29,7 @@ return [
     "duration" => "Długość",
     'description' => "Opis",
     "added-worker" => "Dodano nowego pracownika",
-    "added-service" => "Dodano nową usługę"
+    "added-service" => "Dodano nową usługę",
+    'calendar-dates' => "Kalendarz usług",
+    'calendar-availability' => 'Kalendarz dostępności'
 ];

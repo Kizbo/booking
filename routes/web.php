@@ -24,6 +24,7 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     /** management routes */
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
     Route::view("settings", "pages.settings")->name("settings");
+    Route::view('availability', 'pages.availability')->name('availability');
 
     /** workers management */
     Route::middleware("can:manipulate,".\App\Models\User::class)->group(function (){

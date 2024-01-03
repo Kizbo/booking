@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough(Customer::class, Reservation::class);
     }
+
+    public function getNameAttribute()
+    {
+        return $this->firstname . ' ' . $this->lastname;
+    }
 }

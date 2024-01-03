@@ -35,7 +35,11 @@ new class extends Component
 
         <div>
             <x-responsive-nav-link :href="route('admin.dashboard')" :active="request()->routeIs('admin.dashboard')" >
-                {{ __('Dashboard') }}
+                {{ __('messages.calendar-dates') }}
+            </x-responsive-nav-link>
+
+            <x-responsive-nav-link :href="route('admin.availability')" :active="request()->routeIs('admin.availability')" >
+                {{ __('messages.calendar-availability') }}
             </x-responsive-nav-link>
 
             <x-responsive-nav-link :href="route('admin.services')" :active="request()->routeIs('admin.services')" >
