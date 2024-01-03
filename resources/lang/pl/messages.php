@@ -35,5 +35,7 @@ return [
     'delete' =>  'Usuń',
     'are-you-sure-to-delete' => 'Czy na pewno chcesz usunąć ten rekord?',
     'confirm' => 'Potwierdź',
-    'cancel' => 'Anuluj'
+    'cancel' => 'Anuluj',
+    'label-currency' => "Kod waluty",
+    'label-currency-symbol' => 'Symbol waluty'
 ];

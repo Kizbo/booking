@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Service;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
+use Illuminate\Support\Facades\Config;
 
 class ServicesController extends Controller
 {
@@ -19,7 +21,7 @@ class ServicesController extends Controller
         ];
 
         $tableData = $services->map(function ($service){
-            return [$service->name, $service->price . " zł", $service->duration . " min"];
+            return [$service->name, $service->price . " " . Config::get("site_settings")->get("currency-symbol"), $service->duration . " min"];
         });
 
         $actions = [
