@@ -31,5 +31,9 @@ return [
     "added-worker" => "Dodano nowego pracownika",
     "added-service" => "Dodano nową usługę",
     'calendar-dates' => "Kalendarz usług",
-    'calendar-availability' => 'Kalendarz dostępności'
+    'calendar-availability' => 'Kalendarz dostępności',
+    'delete' =>  'Usuń',
+    'are-you-sure-to-delete' => 'Czy na pewno chcesz usunąć ten rekord?',
+    'confirm' => 'Potwierdź',
+    'cancel' => 'Anuluj'
 ];

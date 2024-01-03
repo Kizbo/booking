@@ -47,6 +47,6 @@ class ServiceForm extends Form
     public function save(): void
     {
         $this->validate();
-        $this->service->fill($this->only(["name", "description", "duration", "price"]));
+        $this->service->update($this->only(["name", "description", "duration", "price"]));
     }
 }

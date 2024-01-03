@@ -28,6 +28,12 @@ class ServicesController extends Controller
                 "text" => __("messages.edit"),
                 "name" => "admin.services.edit",
                 "data" => $services->map(fn($service) => ['id' => $service->id])->toArray()
+            ],
+            [
+                "type" => "delete",
+                "text" => __("messages.delete"),
+                "name" => "admin.services.delete",
+                "data" => $services->map(fn($userData) => ['id' => $userData->id])->toArray()
             ]
         ];
 
@@ -48,4 +54,11 @@ class ServicesController extends Controller
         return view("pages.services.edit");
     }
 
+    public function delete($id)
+    {
+        $this->authorize("manipulate", Service::class);
+        Service::where('id', '=', $id)->delete();
+
+        return redirect()->route('admin.services');
+    }
 }

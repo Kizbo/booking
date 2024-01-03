@@ -29,6 +29,12 @@ class WorkersController extends Controller
                 "text" => __("messages.edit"),
                 "name" => "admin.workers.edit",
                 "data" => $users->map(fn($userData) => ['id' => $userData->id])->toArray()
+            ],
+            [
+                "type" => "delete",
+                "text" => __("messages.delete"),
+                "name" => "admin.workers.delete",
+                "data" => $users->map(fn($userData) => ['id' => $userData->id])->toArray()
             ]
         ];
 
@@ -47,5 +53,13 @@ class WorkersController extends Controller
     public function edit()
     {
         return view("pages.workers.edit");
+    }
+
+    public function delete($id)
+    {
+        $this->authorize("manipulate", User::class);
+        User::where('id', '=', $id)->delete();
+
+        return redirect()->route('admin.workers');
     }
 }

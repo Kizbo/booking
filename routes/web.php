@@ -31,6 +31,7 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
         Route::get('workers', [WorkersController::class, "list"])->name('workers');
         Route::get('workers/new', [WorkersController::class, "create"])->name('workers.create');
         Route::get("workers/{id}", [WorkersController::class, "edit"])->name('workers.edit');
+        Route::get("workers/delete/{id}", [WorkersController::class, "delete"])->name('workers.delete');
     });
 
     /** services management */
@@ -38,6 +39,7 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
         Route::get('services', [ServicesController::class, "list"])->name('services');
         Route::get('services/new', [ServicesController::class, "create"])->name('services.create');
         Route::get("services/{id}", [ServicesController::class, "edit"])->name('services.edit');
+        Route::get("services/delete/{id}", [ServicesController::class, "delete"])->name('services.delete');
     });
 
 
