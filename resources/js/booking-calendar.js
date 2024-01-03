@@ -1,4 +1,3 @@
-import "./bootstrap.js";
 import { Calendar } from "fullcalendar";
 import moment from "moment";
 
@@ -57,7 +56,7 @@ moment.updateLocale("pl", {
     noEventsMessage: "Brak wydarzeń do wyświetlenia",
 });
 
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("displayCalendar", function (event) {
     const calendarEl = document.getElementById("calendar");
     const calendar = new Calendar(calendarEl, {
         initialView: "timeGridWeek",
@@ -79,29 +78,7 @@ document.addEventListener("DOMContentLoaded", function () {
         },
         firstDay: 1,
 
-        events: [
-            {
-                interactive: true,
-                title: "My event",
-                start: "2023-12-18T12:30:00",
-                end: "2023-12-18T14:30:00",
-                customData: ["abc", "def"],
-            },
-            {
-                title: "event1",
-                start: "2010-01-01",
-            },
-            {
-                title: "event2",
-                start: "2010-01-05",
-                end: "2010-01-07",
-            },
-            {
-                title: "event3",
-                start: "2010-01-09T12:30:00",
-                allDay: false, // will make the time show
-            },
-        ],
+        events: event.detail,
     });
     calendar.render();
 });

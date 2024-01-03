@@ -28,5 +28,5 @@
 </div>
 
 @push('body-scripts')
-    {{-- @vite(['resources/js/booking-calendar.js']) --}}
+    @vite(['resources/js/booking-calendar.js'])
 @endpush
