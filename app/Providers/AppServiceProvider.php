@@ -22,8 +22,10 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        $site_settings = Setting::all()->mapWithKeys(fn(Setting $setting) => [$setting->name => $setting->value]);
-        Config::set("site_settings", $site_settings);
-        View::share("site_settings", $site_settings);
+        if (!app()->runningInConsole()) {
+            $site_settings = Setting::all()->mapWithKeys(fn (Setting $setting) => [$setting->name => $setting->value]);
+            Config::set("site_settings", $site_settings);
+            View::share("site_settings", $site_settings);
+        }
     }
 }
