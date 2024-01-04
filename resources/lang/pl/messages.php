@@ -37,5 +37,6 @@ return [
     'confirm' => 'Potwierdź',
     'cancel' => 'Anuluj',
     'label-currency' => "Kod waluty",
-    'label-currency-symbol' => 'Symbol waluty'
+    'label-currency-symbol' => 'Symbol waluty',
+    'choose-worker' => 'Wybierz pracownika'
 ];
