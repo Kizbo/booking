@@ -1,3 +1,8 @@
+{{-- <style>
+    body {
+        background-image: linear-gradient(90deg, rgb(204, 226, 238) 0%, rgba(227, 247, 251, 1) 12.5%, rgba(204, 226, 238, 1) 25%, rgba(227, 247, 251, 1) 37.5%, rgba(204, 226, 238, 1) 50%, rgba(227, 247, 251, 1) 62.5%, rgba(204, 226, 238, 1) 75%, rgba(227, 247, 251, 1) 87.5%, rgba(204, 226, 238, 1) 100%);
+    }
+</style> --}}
 <div class="mx-40 my-6">
     <div class="flex justify-between mb-6">
         <div>
@@ -20,7 +25,8 @@
             </picture>
         </div>
     </div>
-    <div class="relative z-10 grid grid-cols-4 -mt-6 border border-black rounded-3xl bg-primary [&>*]:border-r-2 [&>*]:border-black [&>*:nth-child(4)]:border-none [&>*:last-child]:border-none">
+    <div style="background-image: linear-gradient(90deg, rgba(204, 226, 238, 1) 0%, rgba(227, 247, 251, 1) 12.5%, rgba(204, 226, 238, 1) 25%, rgba(227, 247, 251, 1) 37.5%, rgba(204, 226, 238, 1) 50%, rgba(227, 247, 251, 1) 62.5%, rgba(204, 226, 238, 1) 75%, rgba(227, 247, 251, 1) 87.5%, rgba(204, 226, 238, 1) 100%);"
+     class="relative z-10 grid grid-cols-4 -mt-6 border border-black rounded-3xl bg-primary [&>*]:border-r-2 [&>*]:border-[#69798f] [&>*:nth-child(4)]:border-none [&>*:last-child]:border-none">
         @foreach ($services as $key => $service)
             <livewire:pages.front.service-single :$service :$key />
         @endforeach
@@ -30,3 +36,5 @@
 @push('body-scripts')
     @vite(['resources/js/booking-calendar.js'])
 @endpush
+
+{{-- TODO background-image: linear-gradient(90deg, rgba(204, 226, 238, 1) 0%, rgba(227, 247, 251, 1) 12.5%, rgba(204, 226, 238, 1) 25%, rgba(227, 247, 251, 1) 37.5%, rgba(204, 226, 238, 1) 50%, rgba(227, 247, 251, 1) 62.5%, rgba(204, 226, 238, 1) 75%, rgba(227, 247, 251, 1) 87.5%, rgba(204, 226, 238, 1) 100%); --}}
