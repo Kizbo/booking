@@ -66,11 +66,11 @@ document.addEventListener("displayCalendar", function (event) {
         },
         slotMinTime: "08:00:00", // Set the start hour (e.g., 8:00 AM)
         slotMaxTime: "17:00:00",
-        slotEventOverlap: false,
         contentHeight: "auto",
         eventClick: (info) => {
             console.log(info.event.extendedProps.customData);
         },
+        allDaySlot: false,
         slotLabelFormat: {
             hour: "numeric", // Display hours as numbers (e.g., 1, 2, 3)
             minute: "2-digit", // Display minutes as two digits (e.g., 01, 02)
@@ -81,4 +81,5 @@ document.addEventListener("displayCalendar", function (event) {
         events: event.detail,
     });
     calendar.render();
+    calendar.updateSize();
 });

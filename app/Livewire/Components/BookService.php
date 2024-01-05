@@ -59,10 +59,10 @@ class BookService extends ModalComponent
 
     private function getUserAvailabilityByDate(Carbon $start, int $userId)
     {
-        $availability = UserAvailability::where('user_id', $userId)->where('available_start_datetime', '>=', $start->toDateTimeString());
+        $availability = UserAvailability::where('user_id', $userId)->where('available_end_datetime', '>=', $start->toDateTimeString());
         $start->endOfDay();
         /** @var UserAvailability $availability */
-        $availability = $availability->where('available_end_datetime', '<=', $start->toDateTimeString())->first();
+        $availability = $availability->where('available_start_datetime', '<=', $start->toDateTimeString())->first();
         $start->startOfDay();
 
         if ($availability) {
@@ -72,6 +72,11 @@ class BookService extends ModalComponent
 
     private function saveIfNotOccupied(Collection $reservations, Carbon $operationTime, int $userId)
     {
+        if ($operationTime < Carbon::now()) {
+            $operationTime->addMinutes($this->service->duration);
+            return;
+        }
+
         $occupied = false;
         $operationTimeEnd = clone $operationTime;
         $operationTimeEnd->addMinutes($this->service->duration);
