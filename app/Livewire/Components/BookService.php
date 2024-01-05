@@ -20,12 +20,12 @@ class BookService extends ModalComponent
 
     public static function modalMaxWidth(): string
     {
-        return '4xl';
+        return '7xl';
     }
 
     public function mount()
     {
-        $this->startWeek = Carbon::now()->startOfWeek();
+        $this->startWeek = Carbon::now();
         $this->availability = $this->getAvailability();
     }
 
@@ -114,7 +114,8 @@ class BookService extends ModalComponent
         $operationTime = Carbon::instance($availability->available_start_datetime);
         /** @var Collection<Reservation> $reservations */
         $reservations = Reservation::where('reservation_datetime', '>=', $availability->available_start_datetime)
-            ->where('reservation_datetime', '<=', $availability->available_end_datetime)->get();
+            ->where('reservation_datetime', '<=', $availability->available_end_datetime)
+            ->where('user_id', $userId)->get();
 
         while ($availability->available_end_datetime > $operationTime->toDateTime()) {
             $this->saveIfNotOccupied($reservations, $operationTime, $userId);
@@ -127,7 +128,7 @@ class BookService extends ModalComponent
         $now = Carbon::now();
         $start = $now > $this->startWeek ? $now : $this->startWeek;
         $end = clone $start;
-        $end->endOfWeek();
+        $end->addWeek();
 
         while ($start < $end) {
             $this->findUsersAvailbaility($start);

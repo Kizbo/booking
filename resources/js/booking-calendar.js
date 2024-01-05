@@ -58,6 +58,9 @@ moment.updateLocale("pl", {
 
 document.addEventListener("displayCalendar", function (event) {
     const calendarEl = document.getElementById("calendar");
+    const today = new Date();
+    const wire = event.detail.wire;
+    // console.log(wire.contnet);
     const calendar = new Calendar(calendarEl, {
         initialView: "timeGridWeek",
         locale: "pl",
@@ -68,7 +71,13 @@ document.addEventListener("displayCalendar", function (event) {
         slotMaxTime: "17:00:00",
         contentHeight: "auto",
         eventClick: (info) => {
-            console.log(info.event.extendedProps.customData);
+            wire.dispatch("openModal", {
+                component: "components.reservation-form",
+                arguments: {
+                    userIds: info.event.extendedProps.userIds,
+                    service: info.event.extendedProps.service,
+                },
+            });
         },
         allDaySlot: false,
         slotLabelFormat: {
@@ -76,9 +85,12 @@ document.addEventListener("displayCalendar", function (event) {
             minute: "2-digit", // Display minutes as two digits (e.g., 01, 02)
             omitZeroMinute: false, // Include zero minutes (e.g., 01:00)
         },
-        firstDay: 1,
+        validRange: {
+            start: today.toISOString().substring(0, 10),
+        },
+        firstDay: today.getDay(),
 
-        events: event.detail,
+        events: event.detail.events,
     });
     calendar.render();
     calendar.updateSize();

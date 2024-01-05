@@ -1,7 +1,4 @@
 <style>
-    /* .fc-timegrid-slots tr {
-        height: 50px;
-    } */
     .fc-event-time::after {
         display: none; /* hides event title */
     }
@@ -14,16 +11,9 @@
 
 @script
 <script>
-    const calendarEv = () => {
-        // console.log(document.getElementById("calendar").offsetWidth);
-        
-    }
-
     const calendar = document.getElementById("calendar");
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            console.log(entry.target.offsetWidth);
-            
             const availability = [
                 @php
                     foreach( $availability as $date => $hours ) {
@@ -32,14 +22,20 @@
                             echo "interactive: true,";
                             echo "start: '{$date}T{$hour}',";
                             echo "end: '{$date}T{$value['endTime']}',";
-                            echo "customData: [{$value['users']}],";
+                            echo "userIds: [{$value['users']}],";
+                            echo "service: {$service},";
                             echo "},";
                         }
                     }
                 @endphp
             ];
 
-            const evt = new CustomEvent('displayCalendar', {detail: availability});
+            const evt = new CustomEvent('displayCalendar', {
+                detail: {
+                    events: availability, 
+                    wire: $wire
+                }
+            });
             document.dispatchEvent(evt);
 
             if( !entry.isIntersecting ) {
