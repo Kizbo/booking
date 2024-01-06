@@ -31,19 +31,16 @@ moment.updateLocale("pl", {
         "Gru",
     ],
     weekdays: [
-        "Niedziela",
         "Poniedziałek",
         "Wtorek",
         "Środa",
         "Czwartek",
         "Piątek",
         "Sobota",
+        "Niedziela",
     ],
-    weekdaysShort: ["Niedz", "Pon", "Wt", "Śr", "Czw", "Pt", "Sob"],
-    weekdaysMin: ["Nd", "Pn", "Wt", "Śr", "Cz", "Pt", "So"],
-    week: {
-        dow: 1, // Monday is the first day of the week.
-    },
+    weekdaysShort: ["Pon", "Wt", "Śr", "Czw", "Pt", "Sob", "Niedz"],
+    weekdaysMin: ["Pn", "Wt", "Śr", "Cz", "Pt", "So", "Nd"],
     buttonText: {
         today: "Dziś",
         month: "Miesiąc",
@@ -67,8 +64,8 @@ document.addEventListener("displayCalendar", function (event) {
         buttonText: {
             today: "Dzisiaj",
         },
-        slotMinTime: "08:00:00", // Set the start hour (e.g., 8:00 AM)
-        slotMaxTime: "17:00:00",
+        slotMinTime: "08:00:00",
+        slotMaxTime: "22:00:00",
         contentHeight: "auto",
         eventClick: (info) => {
             wire.dispatch("openModal", {
@@ -81,9 +78,9 @@ document.addEventListener("displayCalendar", function (event) {
         },
         allDaySlot: false,
         slotLabelFormat: {
-            hour: "numeric", // Display hours as numbers (e.g., 1, 2, 3)
-            minute: "2-digit", // Display minutes as two digits (e.g., 01, 02)
-            omitZeroMinute: false, // Include zero minutes (e.g., 01:00)
+            hour: "numeric",
+            minute: "2-digit",
+            omitZeroMinute: false,
         },
         validRange: {
             start: today.toISOString().substring(0, 10),
