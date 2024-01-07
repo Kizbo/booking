@@ -73,6 +73,7 @@ document.addEventListener("displayCalendar", function (event) {
                 arguments: {
                     userIds: info.event.extendedProps.userIds,
                     service: info.event.extendedProps.service,
+                    timestamp: new Date(info.event.start).valueOf(),
                 },
             });
         },

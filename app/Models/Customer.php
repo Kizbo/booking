@@ -12,7 +12,8 @@ class Customer extends Model
     protected $fillable = [
         'first_name',
         'last_name',
-        'phone_number'
+        'phone_number',
+        'email'
     ];
 
     public function reservation(): HasOne
@@ -25,4 +26,3 @@ class Customer extends Model
         return $this->hasOneThrough(User::class, Reservation::class);
     }
 }
-

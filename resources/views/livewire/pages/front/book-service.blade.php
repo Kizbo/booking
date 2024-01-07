@@ -1,8 +1,3 @@
-<style>
-    .fc-event-time::after {
-        display: none; /* hides event title */
-    }
-</style>
 <div>
     <button type="button" wire:click="changeAvailabilityWeek(false)">Tył</button>
     <button type="button" wire:click="changeAvailabilityWeek(true)">Przód</button>

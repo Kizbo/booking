@@ -79,13 +79,13 @@ class BookService extends ModalComponent
 
         $occupied = false;
         $operationTimeEnd = clone $operationTime;
-        $operationTimeEnd->addMinutes($this->service->duration);
+        $operationTimeEnd->addMinutes($this->service->duration - 1);
 
         /** @var Reservation $reservation */
         foreach ($reservations as $reservation) {
             $reservationStartTime = Carbon::parse($reservation->reservation_datetime);
             $reservationEndTime = clone $reservationStartTime;
-            $reservationEndTime->addMinutes($reservation->service->duration);
+            $reservationEndTime->addMinutes($reservation->service->duration - 1);
 
             if ($reservationStartTime <= $operationTimeEnd && $operationTime <= $reservationEndTime) {
                 $occupied = true;
@@ -103,7 +103,7 @@ class BookService extends ModalComponent
             $this->timeSlots[$format]["users"] .= ", " . $userId;
         } else {
             $this->timeSlots[$format]["users"] = $userId;
-            $this->timeSlots[$format]["endTime"] = $operationTimeEnd->format("H:i:s");
+            $this->timeSlots[$format]["endTime"] = $operationTimeEnd->addMinute()->format("H:i:s");
         }
 
         $operationTime->addMinutes($this->service->duration);
