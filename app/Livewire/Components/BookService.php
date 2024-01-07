@@ -126,7 +126,7 @@ class BookService extends ModalComponent
     {
         $availabilities = [];
         $now = Carbon::now();
-        $start = $now > $this->startWeek ? $now : $this->startWeek;
+        $start = $now > $this->startWeek ? $now : clone $this->startWeek;
         $end = clone $start;
         $end->addWeek();
 

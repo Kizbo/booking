@@ -7,35 +7,17 @@
 @script
 <script>
     const calendar = document.getElementById("calendar");
+    // TODO: fix intersection observer to fire addional time after availability range change
     const observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
-            const availability = [
-                @php
-                    foreach( $availability as $date => $hours ) {
-                        foreach( $hours as $hour => $value ) {
-                            echo "{";
-                            echo "interactive: true,";
-                            echo "start: '{$date}T{$hour}',";
-                            echo "end: '{$date}T{$value['endTime']}',";
-                            echo "userIds: [{$value['users']}],";
-                            echo "service: {$service},";
-                            echo "},";
-                        }
-                    }
-                @endphp
-            ];
-
             const evt = new CustomEvent('displayCalendar', {
                 detail: {
-                    events: availability, 
-                    wire: $wire
+                    wire: $wire,
+                    service: "{{$service}}"
                 }
             });
-            document.dispatchEvent(evt);
 
-            if( !entry.isIntersecting ) {
-                observer.unobserve(entry.target);
-            }
+            document.dispatchEvent(evt);
         });
     }, {threshold: 1});
     observer.observe(calendar);

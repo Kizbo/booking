@@ -56,8 +56,21 @@ moment.updateLocale("pl", {
 document.addEventListener("displayCalendar", function (event) {
     const calendarEl = document.getElementById("calendar");
     const today = new Date();
+    const availability = [];
     const wire = event.detail.wire;
-    // console.log(wire.contnet);
+
+    for (const [date, dateData] of Object.entries(wire.availability)) {
+        for (const [hour, hourData] of Object.entries(dateData)) {
+            availability.push({
+                interactive: true,
+                start: date + "T" + hour,
+                end: date + "T" + hourData.endTime,
+                userIds: hourData.users,
+                service: event.detail.service,
+            });
+        }
+    }
+
     const calendar = new Calendar(calendarEl, {
         initialView: "timeGridWeek",
         locale: "pl",
@@ -88,8 +101,9 @@ document.addEventListener("displayCalendar", function (event) {
         },
         firstDay: today.getDay(),
 
-        events: event.detail.events,
+        events: availability,
     });
+    // TODO: Pass `initialdate` from event to here and add wire:click properties to change week arrows using pure js
     calendar.render();
     calendar.updateSize();
 });
