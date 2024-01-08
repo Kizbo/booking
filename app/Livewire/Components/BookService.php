@@ -43,6 +43,7 @@ class BookService extends ModalComponent
         }
 
         $this->availability = $this->getAvailability();
+        $this->dispatch('refreshCalendar');
     }
 
     private function findUsersAvailbaility(Carbon $start)
@@ -100,9 +101,9 @@ class BookService extends ModalComponent
 
         $format = $operationTime->format("H:i:s");
         if (isset($this->timeSlots[$format])) {
-            $this->timeSlots[$format]["users"] .= ", " . $userId;
+            $this->timeSlots[$format]["users"][] = $userId;
         } else {
-            $this->timeSlots[$format]["users"] = $userId;
+            $this->timeSlots[$format]["users"] = [$userId];
             $this->timeSlots[$format]["endTime"] = $operationTimeEnd->addMinute()->format("H:i:s");
         }
 
