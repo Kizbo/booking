@@ -34,7 +34,8 @@ class BookService extends ModalComponent
         return view('livewire.pages.front.book-service');
     }
 
-    public function getJsStartWeek() {
+    public function getJsStartWeek()
+    {
         return $this->startWeek->format('Y-m-d\TH:i:s.uP');
     }
 
@@ -131,9 +132,11 @@ class BookService extends ModalComponent
     {
         $availabilities = [];
         $now = Carbon::now();
-        $start = $now > $this->startWeek ? $now : clone $this->startWeek;
+        $start = clone $this->startWeek;
+        $start->startOfDay();
+        $start = $now > $start ? $now : $start;
         $end = clone $start;
-        $end->addWeek();
+        $end->startOfDay()->addWeek();
 
         while ($start < $end) {
             $this->findUsersAvailbaility($start);

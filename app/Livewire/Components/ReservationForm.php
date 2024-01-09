@@ -10,6 +10,8 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\ReservationSaved;
 
 class ReservationForm extends ModalComponent
 {
@@ -72,6 +74,8 @@ class ReservationForm extends ModalComponent
         ]);
 
         $this->saved = true;
+
+        Mail::to($this->email)->send(new ReservationSaved());
     }
 
     private function chooseUser()
