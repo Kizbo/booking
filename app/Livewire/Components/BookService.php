@@ -34,6 +34,10 @@ class BookService extends ModalComponent
         return view('livewire.pages.front.book-service');
     }
 
+    public function getJsStartWeek() {
+        return $this->startWeek->format('Y-m-d\TH:i:s.uP');
+    }
+
     public function changeAvailabilityWeek(bool $next = true)
     {
         if ($next) {

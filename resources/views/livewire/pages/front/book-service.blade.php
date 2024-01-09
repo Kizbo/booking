@@ -1,11 +1,9 @@
-<div>
+<div wire:ignore>
     <div id="calendar" class="w-full"></div>
 </div>
 
 @script
 <script>
-    const calendarEl = document.getElementById("calendar");
-    
     moment.updateLocale("pl", {
         months: [
             "Styczeń",
@@ -57,24 +55,9 @@
         eventLimitText: "więcej",
         noEventsMessage: "Brak wydarzeń do wyświetlenia",
     });
-
-    const today = new Date();
-
-    const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            renderCalendar();
-        });
-    }, {threshold: 1});
-    observer.observe(calendarEl);
-
-    window.addEventListener('refreshCalendar', event => {
-        observer.unobserve(calendarEl);
-        observer.observe(calendarEl);
-    });
-
-    function renderCalendar(message) {
-        const availability = [];
-
+    
+    const mapAvailability = () => {
+        availability = [];
         for (const [date, dateData] of Object.entries($wire.availability)) {
             for (const [hour, hourData] of Object.entries(dateData)) {
                 availability.push({
@@ -86,42 +69,76 @@
                 });
             }
         }
+    };
+    
+    const calendarEl = document.getElementById("calendar");
+    const today = new Date();
+    let calendarObj;
 
-        const calendar = new Calendar(calendarEl, {
-            initialView: "timeGridWeek",
-            locale: "pl",
-            buttonText: {
-                today: "Dzisiaj",
-            },
-            slotMinTime: "08:00:00",
-            slotMaxTime: "22:00:00",
-            contentHeight: "auto",
-            eventClick: (info) => {
-                $wire.dispatch("openModal", {
-                    component: "components.reservation-form",
-                    arguments: {
-                        userIds: info.event.extendedProps.userIds,
-                        service: info.event.extendedProps.service,
-                        timestamp: new Date(info.event.start).valueOf(),
-                    },
-                });
-            },
-            allDaySlot: false,
-            slotLabelFormat: {
-                hour: "numeric",
-                minute: "2-digit",
-                omitZeroMinute: false,
-            },
-            validRange: {
-                start: today.toISOString().substring(0, 10), 
-            },
-            initialDate: $wire.startWeek, //TODO Fix timezones
-            firstDay: today.getDay(),
+    let availability = [];
+
+    const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+            mapAvailability();
+            calendarObj = new Calendar(calendarEl, {
+                initialView: "timeGridWeek",
+                locale: "pl",
+                buttonText: {
+                    today: "Dzisiaj",
+                },
+                slotMinTime: "08:00:00",
+                slotMaxTime: "22:00:00",
+                contentHeight: "auto",
+                eventClick: (info) => {
+                    $wire.dispatch("openModal", {
+                        component: "components.reservation-form",
+                        arguments: {
+                            userIds: info.event.extendedProps.userIds,
+                            service: info.event.extendedProps.service,
+                            timestamp: new Date(info.event.start).valueOf(),
+                        },
+                    });
+                },
+                allDaySlot: false,
+                slotLabelFormat: {
+                    hour: "numeric",
+                    minute: "2-digit",
+                    omitZeroMinute: false,
+                },
+                validRange: {
+                    start: today.toISOString().substring(0, 10), 
+                },
+                initialDate: $wire.getJsStartWeek(),
+                firstDay: today.getDay(),
+                events: availability,
+            });
+            calendarObj.render();
+        
+            calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
+            calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
+            
+            console.log(calendarObj);
         });
-        calendar.render();
+    }, {threshold: 1});
 
-        calendarEl.querySelector(".fc-prev-button").setAttribute('wire:click', "changeAvailabilityWeek(false)");
-        calendarEl.querySelector(".fc-next-button").setAttribute('wire:click', "changeAvailabilityWeek()");
-    }
+    const resizeObserver = new ResizeObserver((entries) => {
+        console.log(calendarObj);
+        if( calendarObj !== undefined ) {
+            console.log("rendered");
+            calendarObj.render();
+        }
+    });
+
+    resizeObserver.observe(calendarEl);
+    observer.observe(calendarEl);
+    document.addEventListener("refreshCalendar", ()=>{
+        // Reset events
+        mapAvailability();
+        calendarObj.removeAllEvents();
+        for (const event of availability) {
+            calendarObj.addEvent(event);
+        }
+    });
+
 </script>
 @endscript
