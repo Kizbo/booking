@@ -4,6 +4,7 @@ use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\WorkersController;
 use Illuminate\Support\Facades\Route;
 use App\Livewire\Pages\ServiceList;
+use App\Livewire\Pages\ReservationPage;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,6 +18,7 @@ use App\Livewire\Pages\ServiceList;
 */
 
 Route::get('/', ServiceList::class);
+Route::get('/book-service/{id}', ReservationPage::class);
 
 /** ADMIN PANEL */
 Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () {

@@ -20,16 +20,9 @@
             </picture>
         </div>
     </div>
-    <div class="relative z-10 grid grid-cols-4 gap-6 p-6 shadow-md shadow-gray-600 -mt-6 border border-black rounded-3xl bg-white">
+    <div class="relative z-10 grid grid-cols-4 gap-6 p-6 -mt-6 bg-white border border-black shadow-md shadow-gray-600 rounded-3xl">
         @foreach ($services as $key => $service)
             <livewire:pages.front.service-single :$service :$key />
         @endforeach
     </div>
 </div>
-
-@push('page-styles')
-    @vite(['resources/css/booking-calendar.css'])
-@endpush
-@push('body-scripts')
-    @vite(['resources/js/booking-calendar.js'])
-@endpush

@@ -1,3 +1,5 @@
+
+
 <div wire:ignore>
     <div id="calendar" class="w-full"></div>
 </div>
@@ -64,7 +66,8 @@
                     interactive: true,
                     start: date + "T" + hour,
                     end: date + "T" + hourData.endTime,
-                    userIds: hourData.users,
+                    availabilityObj: {{ Illuminate\Support\Js::from($userAvailability) }},
+                    userIds: hourData.users !== undefined ? hourData.users : null,
                     service:  {{ Illuminate\Support\Js::from($service) }},
                 });
             }
@@ -76,53 +79,47 @@
     let calendarObj;
 
     let availability = [];
+    mapAvailability();
+    
+    calendarObj = new Calendar(calendarEl, {
+        initialView: "timeGridWeek",
+        locale: "pl",
+        buttonText: {
+            today: "Dzisiaj",
+        },
+        slotMinTime: "08:00:00",
+        slotMaxTime: "22:00:00",
+        contentHeight: "auto",
+        eventClick: (info) => {
+            $wire.chooseEvent({
+                userIds: info.event.extendedProps.userIds,
+                service: info.event.extendedProps.service,
+                availabilityObj: info.event.extendedProps.availabilityObj,
+                timestamp: new Date(info.event.start).valueOf(),
+            });
+        },
+        allDaySlot: false,
+        slotLabelFormat: {
+            hour: "numeric",
+            minute: "2-digit",
+            omitZeroMinute: false,
+        },
+        validRange: {
+            start: today.toISOString().substring(0, 10), 
+        },
+        initialDate: $wire.getJsStartWeek(),
+        firstDay: today.getDay(),
+        events: availability,
+    });
+    calendarObj.render();
 
-    const observer = new IntersectionObserver(entries => {
-        mapAvailability();
-        calendarObj = new Calendar(calendarEl, {
-            initialView: "timeGridWeek",
-            locale: "pl",
-            buttonText: {
-                today: "Dzisiaj",
-            },
-            slotMinTime: "08:00:00",
-            slotMaxTime: "22:00:00",
-            contentHeight: "auto",
-            eventClick: (info) => {
-                $wire.dispatch("openModal", {
-                    component: "components.reservation-form",
-                    arguments: {
-                        userIds: info.event.extendedProps.userIds,
-                        service: info.event.extendedProps.service,
-                        timestamp: new Date(info.event.start).valueOf(),
-                    },
-                });
-            },
-            allDaySlot: false,
-            slotLabelFormat: {
-                hour: "numeric",
-                minute: "2-digit",
-                omitZeroMinute: false,
-            },
-            validRange: {
-                start: today.toISOString().substring(0, 10), 
-            },
-            initialDate: $wire.getJsStartWeek(),
-            firstDay: today.getDay(),
-            events: availability,
-        });
-        calendarObj.render();
-
-        calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
-        calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
-
-        observer.unobserve(calendarEl);
-    }, {threshold: 1});
-    observer.observe(calendarEl);
+    calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
+    calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
 
     document.addEventListener("refreshCalendar", ()=>{
         // Reset events
         mapAvailability();
+        console.log($wire.availability);
         calendarObj.removeAllEvents();
         for (const event of availability) {
             calendarObj.addEvent(event);

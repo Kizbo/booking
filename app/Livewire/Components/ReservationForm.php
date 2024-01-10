@@ -2,7 +2,7 @@
 
 namespace App\Livewire\Components;
 
-use LivewireUI\Modal\ModalComponent;
+use Livewire\Component;
 use App\Models\Service;
 use App\Models\User;
 use App\Models\Customer;
@@ -13,13 +13,11 @@ use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationSaved;
 
-class ReservationForm extends ModalComponent
+class ReservationForm extends Component
 {
     public array $userIds;
-    public Service $service;
     /** @var Collection<User> $users */
     public Collection $users;
-    public int $timestamp;
     public Carbon $datetime;
     public bool $isSingleUser;
     public bool $saved = false;
@@ -34,6 +32,10 @@ class ReservationForm extends ModalComponent
     #[Validate('required')]
     public string $email;
     public $chosenUser;
+
+    public function __construct(public Service $service, public int $timestamp)
+    {
+    }
 
     public function mount()
     {

@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Components;
 
-use LivewireUI\Modal\ModalComponent;
 use App\Models\Service;
 use App\Models\UserAvailability;
 use App\Models\User;
@@ -11,48 +10,13 @@ use \Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\Database\Eloquent\Collection;
 
-class BookService extends ModalComponent
+class BookService extends Calendar
 {
-    public Service $service;
-    public array $availability;
-    public Carbon $startWeek;
     public array $timeSlots = [];
 
-    public static function modalMaxWidth(): string
+    protected function getTimeSlots(Carbon $start)
     {
-        return '7xl';
-    }
-
-    public function mount()
-    {
-        $this->startWeek = Carbon::now();
-        $this->availability = $this->getAvailability();
-    }
-
-    public function render()
-    {
-        return view('livewire.pages.front.book-service');
-    }
-
-    public function getJsStartWeek()
-    {
-        return $this->startWeek->format('Y-m-d\TH:i:s.uP');
-    }
-
-    public function changeAvailabilityWeek(bool $next = true)
-    {
-        if ($next) {
-            $this->startWeek = $this->startWeek->addWeek();
-        } else {
-            $this->startWeek = $this->startWeek->subWeek();
-        }
-
-        $this->availability = $this->getAvailability();
-        $this->dispatch('refreshCalendar');
-    }
-
-    private function findUsersAvailbaility(Carbon $start)
-    {
+        $this->timeSlots = [];
         $users = User::whereHas('services', function (Builder $query) {
             $query->where('service_id', $this->service->id);
         })->get();
@@ -61,6 +25,8 @@ class BookService extends ModalComponent
         foreach ($users as $user) {
             $this->getUserAvailabilityByDate($start, $user->id);
         }
+
+        return $this->timeSlots;
     }
 
     private function getUserAvailabilityByDate(Carbon $start, int $userId)
@@ -126,28 +92,5 @@ class BookService extends ModalComponent
         while ($availability->available_end_datetime > $operationTime->toDateTime()) {
             $this->saveIfNotOccupied($reservations, $operationTime, $userId);
         }
-    }
-
-    private function getAvailability()
-    {
-        $availabilities = [];
-        $now = Carbon::now();
-        $start = clone $this->startWeek;
-        $start->startOfDay();
-        $start = $now > $start ? $now : $start;
-        $end = clone $start;
-        $end->startOfDay()->addWeek();
-
-        while ($start < $end) {
-            $this->findUsersAvailbaility($start);
-            if (!empty($this->timeSlots))
-                $availabilities[$start->toDateString()] = $this->timeSlots;
-
-            $this->timeSlots = [];
-
-            $start->addDay();
-        }
-
-        return $availabilities;
     }
 }
