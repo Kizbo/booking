@@ -9,13 +9,28 @@ use Livewire\Component;
 
 abstract class Calendar extends Component
 {
+    /**
+     * Callback for clicking calendar event
+     * 
+     * array['timestamp'] Start of the event.
+     * 
+     * array['data'] All additional data send to calendar.
+     * 
+     * @param array $data (See above)
+     */
+    abstract public function chooseEvent(array $data);
     abstract protected function getTimeSlots(Carbon $day);
+    /**
+     * Callback when selecting empty fields in the calendar
+     * 
+     * @param array $data Fullcalendar selectionInfo object
+     */
+    abstract public function selectCallback(array $data);
 
     public array $availability;
     public Carbon $startWeek;
     public array $timeSlots = [];
-    public ?Service $service = null;
-    public ?UserAvailability $userAvailability = null;
+    public bool $isSelectable = true;
 
     public function mount()
     {

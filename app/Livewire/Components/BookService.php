@@ -5,13 +5,17 @@ namespace App\Livewire\Components;
 use App\Models\UserAvailability;
 use App\Models\User;
 use App\Models\Reservation;
+use App\Models\Service;
 use \Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\Database\Eloquent\Collection;
+use \Illuminate\Support\Js;
 
 class BookService extends Calendar
 {
     public array $timeSlots = [];
+    public Service $service;
+    public bool $isSelectable = false;
 
     protected function getTimeSlots(Carbon $start)
     {
@@ -26,6 +30,12 @@ class BookService extends Calendar
         }
 
         return $this->timeSlots;
+    }
+
+    public function chooseEvent($data)
+    {
+        $service = Js::from($data['data']['service']);
+        $this->dispatch('testData', $data);
     }
 
     private function getUserAvailabilityByDate(Carbon $start, int $userId)
@@ -71,13 +81,19 @@ class BookService extends Calendar
 
         $format = $operationTime->format("H:i:s");
         if (isset($this->timeSlots[$format])) {
-            $this->timeSlots[$format]["users"][] = $userId;
+            $this->timeSlots[$format]["data"]["users"][] = $userId;
         } else {
-            $this->timeSlots[$format]["users"] = [$userId];
+            $this->timeSlots[$format]["data"]["users"] = [$userId];
+            $this->timeSlots[$format]["data"]["service"] = Js::encode($this->service);
+
             $this->timeSlots[$format]["endTime"] = $operationTimeEnd->addMinute()->format("H:i:s");
         }
 
         $operationTime->addMinutes($this->service->duration);
+    }
+
+    public function selectCallback(array $data)
+    {
     }
 
     private function generateTimeSlots(UserAvailability $availability, int $userId)

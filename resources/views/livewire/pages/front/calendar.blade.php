@@ -64,9 +64,7 @@
                     interactive: true,
                     start: date + "T" + hour,
                     end: date + "T" + hourData.endTime,
-                    availabilityObj: {{ Illuminate\Support\Js::from($userAvailability) }},
-                    userIds: hourData.users !== undefined ? hourData.users : null,
-                    service:  {{ Illuminate\Support\Js::from($service) }},
+                    data: hourData.data,
                 });
             }
         }
@@ -76,9 +74,7 @@
     
     const calendarEl = document.getElementById("calendar");
     const today = new Date();
-    let calendarObj;
-    
-    calendarObj = new Calendar(calendarEl, {
+    const calendarObj = new Calendar(calendarEl, {
         initialView: "timeGridWeek",
         locale: "pl",
         buttonText: {
@@ -86,12 +82,14 @@
         },
         slotMinTime: "08:00:00",
         slotMaxTime: "22:00:00",
+        selectable: {{var_export($isSelectable, true)}},
+        select: (selectionInfo) => {
+            $wire.selectCallback(selectionInfo);
+        },
         contentHeight: "auto",
         eventClick: (info) => {
             $wire.chooseEvent({
-                userIds: info.event.extendedProps.userIds,
-                service: info.event.extendedProps.service,
-                availabilityObj: info.event.extendedProps.availabilityObj,
+                data: info.event.extendedProps.data,
                 timestamp: new Date(info.event.start).valueOf(),
             });
         },
@@ -114,12 +112,14 @@
     calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
 
     document.addEventListener("refreshCalendar", ()=>{
-        // Reset events
-        console.log($wire.availability);
         calendarObj.removeAllEvents();
         for (const event of mapAvailability()) {
             calendarObj.addEvent(event);
         }
+    });
+
+    document.addEventListener("testData", (event)=>{
+        console.log(event);
     });
 
 </script>
