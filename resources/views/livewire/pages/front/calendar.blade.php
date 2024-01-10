@@ -1,5 +1,5 @@
 <div wire:ignore>
-    <div id="calendar" class="w-full"></div>
+    <div id="calendar"></div>
 </div>
 
 @script
@@ -111,15 +111,11 @@
     calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
     calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
 
-    document.addEventListener("refreshCalendar", ()=>{
+    document.addEventListener("changeDates", ()=>{
         calendarObj.removeAllEvents();
         for (const event of mapAvailability()) {
             calendarObj.addEvent(event);
         }
-    });
-
-    document.addEventListener("testData", (event)=>{
-        console.log(event);
     });
 
 </script>

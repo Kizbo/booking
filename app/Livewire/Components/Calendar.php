@@ -27,6 +27,7 @@ abstract class Calendar extends Component
      */
     abstract public function selectCallback(array $data);
 
+    protected $listeners = ['refreshCalendar' => 'refreshAvailabilities'];
     public array $availability;
     public Carbon $startWeek;
     public array $timeSlots = [];
@@ -57,7 +58,12 @@ abstract class Calendar extends Component
         }
 
         $this->availability = $this->getAvailability();
-        $this->dispatch('refreshCalendar');
+        $this->dispatch('changeDates');
+    }
+
+    public function refreshAvailabilities()
+    {
+        $this->availability = $this->getAvailability();
     }
 
     private function getAvailability()
