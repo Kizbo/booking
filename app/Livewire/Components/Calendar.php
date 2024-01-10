@@ -11,18 +11,18 @@ abstract class Calendar extends Component
 {
     /**
      * Callback for clicking calendar event
-     * 
+     *
      * array['timestamp'] Start of the event.
-     * 
+     *
      * array['data'] All additional data send to calendar.
-     * 
+     *
      * @param array $data (See above)
      */
     abstract public function chooseEvent(array $data);
     abstract protected function getTimeSlots(Carbon $day);
     /**
      * Callback when selecting empty fields in the calendar
-     * 
+     *
      * @param array $data Fullcalendar selectionInfo object
      */
     abstract public function selectCallback(array $data);
@@ -64,6 +64,7 @@ abstract class Calendar extends Component
     public function refreshAvailabilities()
     {
         $this->availability = $this->getAvailability();
+        $this->dispatch('changeDates');
     }
 
     private function getAvailability()

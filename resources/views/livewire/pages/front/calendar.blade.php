@@ -55,7 +55,7 @@
         eventLimitText: "więcej",
         noEventsMessage: "Brak wydarzeń do wyświetlenia",
     });
-    
+
     const mapAvailability = () => {
         const availability = [];
         for (const [date, dateData] of Object.entries($wire.availability)) {
@@ -71,7 +71,7 @@
 
         return availability;
     };
-    
+
     const calendarEl = document.getElementById("calendar");
     const today = new Date();
     const calendarObj = new Calendar(calendarEl, {
@@ -94,13 +94,18 @@
             });
         },
         allDaySlot: false,
+        selectConstraint: {
+            startTime: "08:00:00",
+            endTime: "22:00:00",
+            daysOfWeek: [0, 1, 2, 3, 4, 5, 6]
+        },
         slotLabelFormat: {
             hour: "numeric",
             minute: "2-digit",
             omitZeroMinute: false,
         },
         validRange: {
-            start: today.toISOString().substring(0, 10), 
+            start: today.toISOString().substring(0, 10),
         },
         initialDate: $wire.getJsStartWeek(),
         firstDay: today.getDay(),

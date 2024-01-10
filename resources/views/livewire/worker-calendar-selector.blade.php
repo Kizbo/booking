@@ -2,7 +2,12 @@
 
 use function \Livewire\Volt\{state};
 
-state(['active', 'calendarType'])
+state(['active', 'calendarType']);
+
+$setActive = function ($newValue) {
+    $this->active = intval($newValue);
+    $this->dispatch("refreshCalendar");
+};
 
 ?>
 
@@ -18,7 +23,7 @@ state(['active', 'calendarType'])
         <label>
             <p class="mb-4">{{ __("messages.choose-worker") }}</p>
 
-            <select wire:model.live="active" class="border-gray-300 focus:border-indigo-500 :border-indigo-600 focus:ring-indigo-500 :ring-indigo-600 rounded-md shadow-sm mt-1 block w-full">
+            <select wire:change="setActive($event.target.value)" class="border-gray-300 focus:border-indigo-500 :border-indigo-600 focus:ring-indigo-500 :ring-indigo-600 rounded-md shadow-sm mt-1 block w-full">
                 <option value="null" disabled selected>---</option>
 
                 @foreach(\App\Models\User::all() as $user)
@@ -29,11 +34,14 @@ state(['active', 'calendarType'])
     </div>
 
     @if($active)
-        <div wire:transition>
-            Wybrano user id: {{ $active }}, typ kalendarza: {{ $calendarType }}
-            Tu można na bazie tego renderować kalendarz
+        <div class="max-w-full" wire:transition>
+            <livewire:dynamic-component :is="$calendarType" :userId="$active" />
         </div>
     @endif
+
+    @push("body-scripts")
+        @vite("resources/js/admin.js")
+    @endpush
 </div>
 
 

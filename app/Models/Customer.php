@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\HasOneThrough;
 
@@ -16,9 +17,9 @@ class Customer extends Model
         'email'
     ];
 
-    public function reservation(): HasOne
+    public function reservation(): BelongsTo
     {
-        return $this->hasOne(Reservation::class);
+        return $this->belongsTo(Reservation::class);
     }
 
     public function user(): HasOneThrough

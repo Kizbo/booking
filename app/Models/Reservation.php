@@ -15,6 +15,10 @@ class Reservation extends Model
         'reservation_datetime'
     ];
 
+    protected $casts = [
+        'reservation_datetime' => 'datetime'
+    ];
+
     public function customer(): HasOne
     {
         return $this->hasOne(Customer::class);

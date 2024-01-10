@@ -16,7 +16,7 @@ new class extends Component
     }
 }; ?>
 
-<div x-data="{ open: window.innerWidth >= 976 }" @toggle-drawer.window="open = !open" :class="{'left-0 lg:w-64': open, '-left-64 lg:w-0': !open}" class="z-50 fixed top-0 -left-64 h-screen bg-gray-900 transition-all w-64 overflow-hidden lg:sticky">
+<div x-data="{ open: window.innerWidth >= 976 }" @toggle-drawer.window="open = !open" :class="{'left-0 lg:w-64': open, '-left-64 lg:w-0': !open}" class="z-50 fixed top-0 -left-64 h-screen bg-gray-900 transition-all w-64 overflow-hidden lg:sticky shrink-0">
     <div class="absolute right-0 top-0 flex items-center lg:hidden">
         <button @click="open = !open; $dispatch('toggle-drawer-from-drawer')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 :text-gray-400 hover:bg-gray-100 :bg-gray-900 focus:outline-none focus:bg-gray-100 :bg-gray-900 focus:text-gray-500 :text-gray-400 transition duration-150 ease-in-out">
             {{ __("Zamknij") }}
