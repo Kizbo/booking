@@ -2,7 +2,6 @@
 
 namespace App\Livewire\Components;
 
-use App\Models\Service;
 use App\Models\UserAvailability;
 use App\Models\User;
 use App\Models\Reservation;

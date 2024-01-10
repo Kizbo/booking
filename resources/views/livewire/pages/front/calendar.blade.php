@@ -1,5 +1,3 @@
-
-
 <div wire:ignore>
     <div id="calendar" class="w-full"></div>
 </div>
@@ -59,7 +57,7 @@
     });
     
     const mapAvailability = () => {
-        availability = [];
+        const availability = [];
         for (const [date, dateData] of Object.entries($wire.availability)) {
             for (const [hour, hourData] of Object.entries(dateData)) {
                 availability.push({
@@ -72,14 +70,13 @@
                 });
             }
         }
+
+        return availability;
     };
     
     const calendarEl = document.getElementById("calendar");
     const today = new Date();
     let calendarObj;
-
-    let availability = [];
-    mapAvailability();
     
     calendarObj = new Calendar(calendarEl, {
         initialView: "timeGridWeek",
@@ -109,7 +106,7 @@
         },
         initialDate: $wire.getJsStartWeek(),
         firstDay: today.getDay(),
-        events: availability,
+        events: mapAvailability(),
     });
     calendarObj.render();
 
@@ -118,10 +115,9 @@
 
     document.addEventListener("refreshCalendar", ()=>{
         // Reset events
-        mapAvailability();
         console.log($wire.availability);
         calendarObj.removeAllEvents();
-        for (const event of availability) {
+        for (const event of mapAvailability()) {
             calendarObj.addEvent(event);
         }
     });

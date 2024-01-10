@@ -17,9 +17,14 @@ abstract class Calendar extends Component
     public ?Service $service = null;
     public ?UserAvailability $userAvailability = null;
 
-    public function render() {
+    public function mount()
+    {
         $this->startWeek = Carbon::now();
         $this->availability = $this->getAvailability();
+    }
+
+    public function render()
+    {
         return view('livewire.pages.front.calendar');
     }
 
