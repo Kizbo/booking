@@ -8,19 +8,26 @@ use App\Models\User;
 use App\Models\Customer;
 use App\Models\Reservation;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Collection;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationSaved;
+use App\Notifications\ReservationReminder;
+use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Redis;
 
 class ReservationForm extends Component
 {
-    public array $userIds;
-    /** @var Collection<User> $users */
-    public Collection $users;
+    use Notifiable;
+
+    protected $listeners = ['choseUsers' => 'setUsers'];
+
     public Carbon $datetime;
     public bool $isSingleUser;
     public bool $saved = false;
+    public Service $service;
+    public $users;
+    private ReservationReminder $notification;
+    public ?int $timestamp;
 
     //Form
     #[Validate('required')]
@@ -33,20 +40,21 @@ class ReservationForm extends Component
     public string $email;
     public $chosenUser;
 
-    public function __construct(public Service $service, public int $timestamp)
-    {
+    public function mount(ReservationReminder $notification) {
+        $this->notification = $notification;
     }
 
-    public function mount()
-    {
-        $this->users = User::whereIn('id', $this->userIds)->get();
-        $this->datetime = Carbon::createFromTimestampMs($this->timestamp);
+    public function setUsers($data) {
+        $this->users = User::whereIn('id', $data['data']['users'])->get();
+        
+        $this->datetime = Carbon::createFromTimestampMs($data['timestamp']);
         $this->isSingleUser = count($this->users) < 2;
 
-        if ($this->isSingleUser)
+        if ($this->isSingleUser && $this->users)
             $this->chosenUser = $this->users->first()->id;
-        else
+        else {
             $this->chosenUser = 'any';
+        }
     }
 
     public function save()
@@ -78,6 +86,8 @@ class ReservationForm extends Component
         $this->saved = true;
 
         Mail::to($this->email)->send(new ReservationSaved());
+        $delay = now()->addMinutes(2);
+        $this->notify((new ReservationReminder())->delay($delay));
     }
 
     private function chooseUser()

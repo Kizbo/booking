@@ -34,8 +34,7 @@ class BookService extends Calendar
 
     public function chooseEvent($data)
     {
-        $service = Js::from($data['data']['service']);
-        $this->dispatch('testData', $data);
+        $this->dispatch('choseUsers', $data);
     }
 
     private function getUserAvailabilityByDate(Carbon $start, int $userId)
@@ -84,7 +83,7 @@ class BookService extends Calendar
             $this->timeSlots[$format]["data"]["users"][] = $userId;
         } else {
             $this->timeSlots[$format]["data"]["users"] = [$userId];
-            $this->timeSlots[$format]["data"]["service"] = Js::encode($this->service);
+            $this->timeSlots[$format]["title"] = $this->service->name;
 
             $this->timeSlots[$format]["endTime"] = $operationTimeEnd->addMinute()->format("H:i:s");
         }

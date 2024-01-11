@@ -11,6 +11,7 @@ class ReservationPage extends Component
 {
     public int $id;
     public Service $service;
+    public array $users;
 
     public function mount(int $id): void
     {

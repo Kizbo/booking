@@ -1,11 +1,9 @@
 <div>
     <livewire:components.book-service :$service >
-    <pre>{{$id}}</pre>
+    <livewire:components.reservation-form :$service >
+        {{-- {{var_dump(\Queue::getRedis()->connection($connection)->zrange('queues:'.$default.':delayed', 0, -1))}} --}}
 </div>
 
-@push('page-styles')
-    @vite(['resources/css/booking-calendar.css'])
-@endpush
 @push('body-scripts')
     @vite(['resources/js/booking-calendar.js'])
 @endpush

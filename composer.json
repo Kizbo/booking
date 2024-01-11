@@ -13,6 +13,7 @@
         "livewire/livewire": "^3.0",
         "livewire/volt": "^1.0",
         "owenvoke/blade-fontawesome": "^2.5",
+        "predis/predis": "^2.2",
         "wire-elements/modal": "^2.0"
     },
     "require-dev": {

@@ -34,7 +34,6 @@ class AvailabilityCalendar extends Calendar
         return $availability->mapWithKeys(function ($slot){
             return [$slot->available_start_datetime->format("H:i:s") => [
                 'endTime' => $slot->available_end_datetime->format("H:i:s"),
-                'title' => "",
                 'data' => [
                     'availabilityId' => $slot->id,
                 ]

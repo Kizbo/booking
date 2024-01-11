@@ -65,6 +65,7 @@
                     start: date + "T" + hour,
                     end: date + "T" + hourData.endTime,
                     data: hourData.data,
+                    title: hourData.title ?? ""
                 });
             }
         }
@@ -116,7 +117,7 @@
     calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
     calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
 
-    document.addEventListener("changeDates", ()=>{
+    document.addEventListener("changeDates", () => {
         calendarObj.removeAllEvents();
         for (const event of mapAvailability()) {
             calendarObj.addEvent(event);
