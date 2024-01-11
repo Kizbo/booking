@@ -48,7 +48,7 @@ return [
     'distinct' => 'Pole :attribute ma zduplikowaną wartość.',
     'doesnt_end_with' => 'Pole :attribute nie może kończyć się jednym z następujących: :values.',
     'doesnt_start_with' => 'Pole :attribute nie może zaczynać się jednym z następujących: :values.',
-    'email' => 'Pole :attribute musi być prawidłowym adresem email.',
+    'email' => 'Pole musi być prawidłowym adresem email.',
     'ends_with' => 'Pole :attribute musi kończyć się jednym z następujących: :values.',
     'enum' => 'Wybrany :attribute jest nieprawidłowy.',
     'exists' => 'Wybrany :attribute jest nieprawidłowy.',
@@ -122,6 +122,7 @@ return [
         'symbols' => 'Pole :attribute musi zawierać co najmniej jeden symbol.',
         'uncompromised' => 'Podane :attribute pojawiło się w przecieku danych. Proszę wybrać inne :attribute.',
     ],
+    'phone_number' => 'Pole musi być prawidłowym numerem telefonu z numerem kierunkowym',
     'present' => 'Pole :attribute musi być obecne.',
     'present_if' => 'Pole :attribute musi być obecne, gdy :other jest :value.',
     'present_unless' => 'Pole :attribute musi być obecne, chyba że :other jest :value.',
@@ -186,5 +187,10 @@ return [
     |
     */
 
-    'attributes' => [],
+    'attributes' => [
+        'firstName' => 'Imię',
+        'lastName' => 'Nazwisko',
+        'phoneNumber' => 'Numer telefonu',
+        'email' => 'Adres Email'
+    ],
 ];

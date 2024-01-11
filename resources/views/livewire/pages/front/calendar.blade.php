@@ -65,7 +65,7 @@
                     start: date + "T" + hour,
                     end: date + "T" + hourData.endTime,
                     data: hourData.data,
-                    title: hourData.title ?? ""
+                    title: hourData.title ? ('\u00A0\u2014\u00A0' + hourData.title) : ""
                 });
             }
         }
@@ -126,3 +126,11 @@
 
 </script>
 @endscript
+
+@push('page-styles')
+<style>
+.fc .fc-event-time::after {
+    display: none;
+}
+</style>
+@endpush

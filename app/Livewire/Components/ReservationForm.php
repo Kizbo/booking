@@ -27,6 +27,7 @@ class ReservationForm extends Component
     public Service $service;
     public $users;
     private ReservationReminder $notification;
+    public $chosenUser;
     public ?int $timestamp;
 
     //Form
@@ -34,19 +35,20 @@ class ReservationForm extends Component
     public string $firstName;
     #[Validate('required')]
     public string $lastName;
-    #[Validate('required')]
+    #[Validate('required|phone_number')]
     public string $phoneNumber;
-    #[Validate('required')]
+    #[Validate('required|email')]
     public string $email;
-    public $chosenUser;
 
-    public function mount(ReservationReminder $notification) {
+    public function mount(ReservationReminder $notification)
+    {
         $this->notification = $notification;
     }
 
-    public function setUsers($data) {
+    public function setUsers($data)
+    {
         $this->users = User::whereIn('id', $data['data']['users'])->get();
-        
+
         $this->datetime = Carbon::createFromTimestampMs($data['timestamp']);
         $this->isSingleUser = count($this->users) < 2;
 

@@ -1,5 +1,9 @@
 @php
     $disabled = $isSingleUser ? "bg-gray-100 pointer-events-none" : "";
+    $firstNameError = $errors->has('firstName') ? "border-red-500" : "";
+    $lastNameError = $errors->has('lastName') ? "border-red-500" : "";
+    $phoneNumberError = $errors->has('phoneNumber') ? "border-red-500" : "";
+    $emailError = $errors->has('email') ? "border-red-500" : "";
 @endphp
 <div class="p-5">
     @if($saved)
@@ -27,22 +31,34 @@
                 <div class="flex gap-x-4">
                     <div class="flex flex-col flex-grow">
                         <label class="mt-4 font-bold" for="first_name">Imię</label>
-                        <input type="text" wire:model='firstName' id="first_name">
+                        <input class="{{$firstNameError}}" type="text" wire:model='firstName' id="first_name">
+                        @error('firstName')
+                            <p class="text-red-500">{{$message}}</p>
+                        @enderror
                     </div>
                     <div class="flex flex-col flex-grow">
                         <label class="mt-4 font-bold" for="last_name">Nazwisko</label>
-                        <input type="text" wire:model='lastName' id="last_name">
+                        <input class="{{$lastNameError}}" type="text" wire:model='lastName' id="last_name">
+                        @error('lastName')
+                            <p class="text-red-500">{{$message}}</p>
+                        @endif
                     </div>
                 </div>
 
                 <div class="flex gap-x-4">
                     <div class="flex flex-col flex-grow">
                         <label class="mt-4 font-bold" for="phone_number">Numer telefonu</label>
-                        <input type="tel" wire:model='phoneNumber' id="phone_number">
+                        <input class="{{$phoneNumberError}}" type="tel" wire:model='phoneNumber' id="phone_number">
+                        @error('phoneNumber')
+                            <p class="text-red-500">{{$message}}</p>
+                        @endif
                     </div>
                     <div class="flex flex-col flex-grow">
                         <label class="mt-4 font-bold" for="email">Adres email</label>
-                        <input type="email" wire:model='email' id="email">
+                        <input class="{{$emailError}}" type="email" wire:model='email' id="email">
+                        @error('email')
+                            <p class="text-red-500">{{$message}}</p>
+                        @endif
                     </div>
                 </div>
                 <div class="flex flex-col items-center mt-4">
