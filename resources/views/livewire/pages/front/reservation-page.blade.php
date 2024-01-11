@@ -1,7 +1,6 @@
 <div class="p-10 flex">
     <livewire:components.book-service :$service >
     <livewire:components.reservation-form :$service >
-        {{-- {{var_dump(\Queue::getRedis()->connection($connection)->zrange('queues:'.$default.':delayed', 0, -1))}} --}}
 </div>
 
 @push('body-scripts')

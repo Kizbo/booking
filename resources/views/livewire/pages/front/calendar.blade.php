@@ -1,5 +1,18 @@
-<div wire:ignore>
-    <div id="calendar"></div>
+<div>
+    <style>
+        .fc .fc-event-time::after {
+            display: none;
+        }
+        
+        .fc .fc-event:hover {
+            background-color: #2966a1;
+            cursor: pointer;
+        }
+    </style>
+    <div id="calendar" wire:ignore></div>
+    <div wire:loading>
+        LOADING
+    </div>
 </div>
 
 @script
@@ -95,6 +108,13 @@
             });
         },
         allDaySlot: false,
+        eventDidMount: function(info) {
+            if( info.event.title !== undefined && info.event.title !== "" ) {
+                tippy(info.el, {
+                    content: info.event.title.substring(3),
+                });
+            }
+        },
         selectConstraint: {
             startTime: "08:00:00",
             endTime: "22:00:00",
@@ -106,12 +126,13 @@
             omitZeroMinute: false,
         },
         validRange: {
-            start: today.toISOString().substring(0, 10),
+            start: $wire.startWeek,
         },
-        initialDate: $wire.getJsStartWeek(),
+        initialDate: $wire.startWeek,
         firstDay: today.getDay(),
         events: mapAvailability(),
     });
+    console.log($wire.startWeek);
     calendarObj.render();
 
     calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
@@ -126,11 +147,3 @@
 
 </script>
 @endscript
-
-@push('page-styles')
-<style>
-.fc .fc-event-time::after {
-    display: none;
-}
-</style>
-@endpush

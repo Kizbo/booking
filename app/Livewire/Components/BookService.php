@@ -9,7 +9,6 @@ use App\Models\Service;
 use \Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use \Illuminate\Database\Eloquent\Collection;
-use \Illuminate\Support\Js;
 
 class BookService extends Calendar
 {
@@ -83,7 +82,6 @@ class BookService extends Calendar
             $this->timeSlots[$format]["data"]["users"][] = $userId;
         } else {
             $this->timeSlots[$format]["data"]["users"] = [$userId];
-            $this->timeSlots[$format]["title"] = $this->service->name;
 
             $this->timeSlots[$format]["endTime"] = $operationTimeEnd->addMinute()->format("H:i:s");
         }

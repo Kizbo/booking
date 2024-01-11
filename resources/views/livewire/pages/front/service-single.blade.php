@@ -2,27 +2,28 @@
 
 use Livewire\Volt\Component;
 use App\Models\Service;
+use Illuminate\Support\Number;
 
 new class extends Component {
     public Service $service;
 }; ?>
 
-<div class="flex flex-col py-3 pl-3 pr-6 rounded shadow-md shadow-gray-600">
+<div class="flex flex-col p-6 rounded shadow-md shadow-gray-600">
     <div class="flex justify-between">
         <h2 class="text-lg font-bold">{{ $service->name }}</h2>
-        <a href="/book-service/{{$service->id}}/" class="flex items-center justify-center w-10 h-10 duration-150 bg-black border border-black rounded-full group hover:bg-white">
-            <x-fas-calendar-plus class="w-5 -mt-px duration-150 fill-white group-hover:fill-black" />
-        </a>
     </div>
-    <p>{{ $service->description }}</p>
-    <div class="flex items-end justify-around flex-grow mt-7">
-        <div class="flex flex-col items-center">
-            <x-fas-stopwatch class="w-5" />
-            <p class="font-bold">{{ $service->duration }} min</p>
-        </div>
-        <div class="flex flex-col items-center">
-            <x-fas-money-bill-1-wave class="w-5" />
-            <p class="font-bold">{{ $service->price }} zł</p>
-        </div>
+    <p class="mb-4">{{ $service->description }}</p>
+    <div class="flex flex-row items-center text-gray-600 mb-1">
+        <x-fas-stopwatch class="w-4 mr-4 fill-gray-600" />
+        <p class="font-bold text-sm">{{ $service->duration }} min</p>
+    </div>
+    <div class="flex flex-row items-center mb-5 text-gray-600">
+        <x-fas-money-bill-1-wave class="w-4 mr-4 fill-gray-600" />
+        <p class="font-bold text-sm">{{ Number::currency($service->price, in: 'PLN', locale: 'pl') }}</p>
+    </div>
+    <div>
+        <a href="/book-service/{{$service->id}}/" class="flex px-6 py-2 mx-auto rounded-md w-fit items-center justify-center duration-150 bg-gray-900 border border-gray-900 hover:bg-white text-white hover:text-gray-900">
+            ZAREZERWUJ
+        </a>
     </div>
 </div>
