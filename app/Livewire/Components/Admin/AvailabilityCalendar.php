@@ -29,10 +29,9 @@ class AvailabilityCalendar extends Calendar
         $dayStart = (clone $day)->startOfDay();
         $dayEnd = (clone $day)->endOfDay();
 
-        $availability = $user->availability()
+        $availability = $user->availability
             ->where("available_start_datetime", "<=", $dayEnd)
-            ->where("available_end_datetime", ">=", $dayStart)
-            ->ddRawSql();
+            ->where("available_end_datetime", ">=", $dayStart);
 
         return $availability->mapWithKeys(function ($slot){
             return [$slot->available_start_datetime->format("H:i:s") => [
@@ -47,8 +46,14 @@ class AvailabilityCalendar extends Calendar
     /**
      * @inheritDoc
      */
-    public function selectCallback(array $data)
+    public function selectCallback(array $data): void
     {
-        dd($data);
+        $this->redirectRoute("admin.availability.create",
+            [
+                'user' => $this->userId,
+                'start' => $data['start'],
+                'end' => $data['end']
+            ]
+        );
     }
 }

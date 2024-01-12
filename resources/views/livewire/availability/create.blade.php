@@ -2,6 +2,7 @@
 
 use Livewire\Volt\Component;
 use \App\Livewire\Forms\UserAvailabilityForm;
+use \Illuminate\Support\Carbon;
 
 new class extends Component {
 
@@ -13,6 +14,12 @@ new class extends Component {
     {
         $this->form->setAvailability(new \App\Models\UserAvailability());
         $this->form->setUser($this->user);
+
+        if(request()->has("start"))
+            $this->form->available_start_datetime = Carbon::parse(request()->get("start"))->format("Y-m-d\TH:i:s");
+
+        if(request()->has("end"))
+            $this->form->available_end_datetime = Carbon::parse(request()->get("end"))->format("Y-m-d\TH:i:s");
     }
 
     public function create(): void
