@@ -12,13 +12,18 @@
             </button>
         </div>
     </div>
+    {{-- //TODO: pasek z logo i wyszukiwarką - style --}}
     <div class="relative after:absolute after:shadow-[inset_0px_0px_8px_16px_#FFF] after:block after:-top-1 after:-bottom-1 after:-left-1 after:-right-1">
         <picture>
             <source type="image/webp" srcset="{{ asset('images/sample_bakcground.webp') }}">
             <img src="{{ asset('images/sample_bakcground.png') }}" alt="background" >
         </picture>
+        <div class="absolute p-8 text-center text-white -translate-x-1/2 bg-black/50 bottom-16 left-1/2">
+            <p class="text-xl font-bold">Lista usług salonu {{env('APP_NAME')}}</p>
+            <p>Poniżej znajduje się lista wszystkich usług dostepnych online</p>
+        </div>
     </div>
-    <div class="relative grid grid-cols-3 gap-14 p-6">
+    <div class="relative grid grid-cols-1 p-6 lg:grid-cols-2 xl:grid-cols-3 gap-14">
         @foreach ($services as $key => $service)
             <livewire:pages.front.service-single :$service :$key />
         @endforeach

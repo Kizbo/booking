@@ -10,8 +10,11 @@
         }
     </style>
     <div id="calendar" wire:ignore></div>
-    <div wire:loading>
-        LOADING
+    <div wire:loading.flex style="{{$displayLoader}}" class="absolute top-0 left-0 z-10 items-center justify-center w-full h-full bg-gray-600/70">
+        <svg class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
     </div>
 </div>
 
@@ -95,7 +98,7 @@
             today: "Dzisiaj",
         },
         slotMinTime: "08:00:00",
-        slotMaxTime: "22:00:00",
+        slotMaxTime: "21:00:00",
         selectable: {{var_export($isSelectable, true)}},
         select: (selectionInfo) => {
             $wire.selectCallback(selectionInfo);
@@ -117,7 +120,7 @@
         },
         selectConstraint: {
             startTime: "08:00:00",
-            endTime: "22:00:00",
+            endTime: "21:00:00",
             daysOfWeek: [0, 1, 2, 3, 4, 5, 6]
         },
         slotLabelFormat: {
@@ -134,9 +137,11 @@
     });
     console.log($wire.startWeek);
     calendarObj.render();
+    $wire.hideLoader();
 
-    calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(false)});
-    calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek(true)});
+    calendarEl.querySelector(".fc-prev-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek("prev")});
+    calendarEl.querySelector(".fc-next-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek("next")});
+    calendarEl.querySelector(".fc-today-button").addEventListener("click", ()=>{$wire.changeAvailabilityWeek("curr")});
 
     document.addEventListener("changeDates", () => {
         calendarObj.removeAllEvents();

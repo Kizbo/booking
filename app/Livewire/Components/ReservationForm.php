@@ -13,7 +13,6 @@ use Illuminate\Support\Facades\Mail;
 use App\Mail\ReservationSaved;
 use App\Notifications\ReservationReminder;
 use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Redis;
 
 class ReservationForm extends Component
 {
@@ -23,7 +22,6 @@ class ReservationForm extends Component
 
     public Carbon $datetime;
     public bool $isSingleUser;
-    public bool $saved = false;
     public Service $service;
     public $users;
     private ReservationReminder $notification;
@@ -78,6 +76,8 @@ class ReservationForm extends Component
         else
             $this->chosenUser = intval($this->chosenUser);
 
+        //TODO: double check if reservation time is available
+
         Reservation::create([
             'customer_id' => $customer->id,
             'user_id' => $this->chosenUser,
@@ -85,11 +85,18 @@ class ReservationForm extends Component
             'reservation_datetime' => $this->datetime->toDateTime()
         ]);
 
-        $this->saved = true;
-
+        //TODO: Send this mail as notifiaction and change notification templates because they are preatty
         Mail::to($this->email)->send(new ReservationSaved());
-        $delay = now()->addMinutes(2);
-        $this->notify((new ReservationReminder())->delay($delay));
+        $this->datetime->subDay();
+        if( Carbon::now() < $this->datetime ) {
+            $this->notify((new ReservationReminder())->delay($this->datetime));
+        }
+
+        $this->dispatch('openModal', 'reservation-saved', ['datetime' => $this->datetime]);
+    }
+
+    private function chooseUser() {
+        //TODO: Choose worker automatically if none was specified
     }
 
     public function render()

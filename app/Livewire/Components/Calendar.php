@@ -30,6 +30,7 @@ abstract class Calendar extends Component
     public Carbon $startWeek;
     public array $timeSlots = [];
     public bool $isSelectable = true;
+    public string $displayLoader = "display:flex;";
 
     public function mount()
     {
@@ -42,12 +43,16 @@ abstract class Calendar extends Component
         return view('livewire.pages.front.calendar');
     }
 
-    public function changeAvailabilityWeek(bool $next = true)
+    public function hideLoader() {
+        $this->displayLoader = "";
+    }
+
+    public function changeAvailabilityWeek($week)
     {
-        if ($next) {
-            $this->startWeek = $this->startWeek->addWeek();
-        } else {
-            $this->startWeek = $this->startWeek->subWeek();
+        switch( $week ) {
+            case "next": $this->startWeek = $this->startWeek->addWeek(); break;
+            case "prev": $this->startWeek = $this->startWeek->subWeek(); break;
+            case "curr": $this->startWeek = Carbon::now(); break;
         }
 
         $this->availability = $this->getAvailability();
