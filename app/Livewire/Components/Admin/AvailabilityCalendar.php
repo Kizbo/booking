@@ -29,9 +29,10 @@ class AvailabilityCalendar extends Calendar
         $dayStart = (clone $day)->startOfDay();
         $dayEnd = (clone $day)->endOfDay();
 
-        $availability = $user->availability
+        $availability = $user->availability()
             ->where("available_start_datetime", "<=", $dayEnd)
-            ->where("available_end_datetime", ">=", $dayStart);
+            ->where("available_end_datetime", ">=", $dayStart)
+            ->dd();
 
         return $availability->mapWithKeys(function ($slot){
             return [$slot->available_start_datetime->format("H:i:s") => [

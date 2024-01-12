@@ -43,5 +43,12 @@ return [
     'worker-unavailable' => "Pracownik nie ma w tym czasie zmiany",
     'worker-busy' => "Pracownik ma w tym czasie inną rezerwacje",
     'reservation-end' => 'Koniec rezerwacji',
-    'back-to-calendar' => "Wróć do kalendarza"
+    'back-to-calendar' => "Wróć do kalendarza",
+    'create-availability' => "Stwórz nową zmianę pracownika",
+    'availability-start' => "Początek zmiany",
+    'availability-end' => "Koniec zmiany",
+    'for-user' => "dla pracownika",
+    'overlapping-shift-exists' => 'Dane parametry zmiany nachodzą na inną już zdefiniowaną zmianę',
+    'shift-must-be-one-day' => 'Początek i koniec zmiany musi zawierać się w tym samym dniu',
+    'start-later-than-end' => "Początek zmiany musi być wcześniej niż jej koniec"
 ];

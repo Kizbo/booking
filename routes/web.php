@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AvailabilityManagement;
 use App\Http\Controllers\ReservationsManagement;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\WorkersController;
@@ -30,6 +31,7 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::view('availability', 'pages.availability')->name('availability');
 
     Route::get("reservations/edit/{reservation}", [ReservationsManagement::class, "edit"])->name("reservations.edit");
+    Route::get('availability/create/{user}', [AvailabilityManagement::class, "create"])->name("availability.create");
 
     /** workers management */
     Route::middleware("can:manipulate,".\App\Models\User::class)->group(function (){
