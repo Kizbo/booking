@@ -38,5 +38,10 @@ return [
     'cancel' => 'Anuluj',
     'label-currency' => "Kod waluty",
     'label-currency-symbol' => 'Symbol waluty',
-    'choose-worker' => 'Wybierz pracownika'
+    'choose-worker' => 'Wybierz pracownika',
+    'reservation-datetime' => 'Data i czas rezerwacji',
+    'worker-unavailable' => "Pracownik nie ma w tym czasie zmiany",
+    'worker-busy' => "Pracownik ma w tym czasie inną rezerwacje",
+    'reservation-end' => 'Koniec rezerwacji',
+    'back-to-calendar' => "Wróć do kalendarza"
 ];

@@ -38,10 +38,6 @@ $setActive = function ($newValue) {
             <livewire:dynamic-component :is="$calendarType" :userId="$active" />
         </div>
     @endif
-
-    @push("body-scripts")
-        @vite("resources/js/admin.js")
-    @endpush
 </div>
 
 

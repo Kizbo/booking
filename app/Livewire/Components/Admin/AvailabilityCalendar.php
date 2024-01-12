@@ -5,12 +5,14 @@ namespace App\Livewire\Components\Admin;
 use App\Livewire\Components\Calendar;
 use App\Models\User;
 use Carbon\Carbon;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Reactive;
 
 class AvailabilityCalendar extends Calendar
 {
 
     #[Reactive]
+    #[Locked]
     public $userId;
 
     /**

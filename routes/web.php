@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ReservationsManagement;
 use App\Http\Controllers\ServicesController;
 use App\Http\Controllers\WorkersController;
 use Illuminate\Support\Facades\Route;
@@ -27,6 +28,8 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::view('dashboard', 'pages.dashboard')->name('dashboard');
     Route::view("settings", "pages.settings")->name("settings");
     Route::view('availability', 'pages.availability')->name('availability');
+
+    Route::get("reservations/edit/{reservation}", [ReservationsManagement::class, "edit"])->name("reservations.edit");
 
     /** workers management */
     Route::middleware("can:manipulate,".\App\Models\User::class)->group(function (){

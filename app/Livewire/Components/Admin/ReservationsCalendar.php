@@ -5,12 +5,14 @@ namespace App\Livewire\Components\Admin;
 use App\Livewire\Components\Calendar;
 use App\Models\User;
 use Carbon\Carbon;
+use Livewire\Attributes\Locked;
 use Livewire\Attributes\Reactive;
 
 class ReservationsCalendar extends Calendar
 {
 
     #[Reactive]
+    #[Locked]
     public $userId;
 
     public bool $isSelectable = false;
@@ -37,7 +39,7 @@ class ReservationsCalendar extends Calendar
 
     public function chooseEvent(array $data)
     {
-        dump($data);
+        $this->redirectRoute("reservations.edit", ['reservation' => $data['data']['reservationId']]);
     }
 
     public function selectCallback(array $data)
