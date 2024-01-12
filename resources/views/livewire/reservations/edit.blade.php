@@ -32,7 +32,7 @@ new class extends Component {
 
 <section>
     <header>
-        <a href="{{ route("admin.dashboard") }}" class="flex items-center gap-2 mb-2"><x-fas-arrow-left-long class="h-4" /> {{ __("messages.back-to-calendar") }}</a>
+        <a href="{{ route("admin.dashboard", ['activeUser' => $reservation->user->id]) }}" class="flex items-center gap-2 mb-2"><x-fas-arrow-left-long class="h-4" /> {{ __("messages.back-to-calendar") }}</a>
         <h2 class="text-lg font-medium text-gray-900 ">
             {{ __('messages.edit') }} {{ $reservation->service->name }} {{ $reservation->reservation_datetime }}
         </h2>

@@ -2,7 +2,8 @@
 
 use function \Livewire\Volt\{state};
 
-state(['active', 'calendarType']);
+state(['calendarType']);
+state(['active'])->url('activeUser');
 
 $setActive = function ($newValue) {
     $this->active = intval($newValue);
@@ -24,10 +25,10 @@ $setActive = function ($newValue) {
             <p class="mb-4">{{ __("messages.choose-worker") }}</p>
 
             <select wire:change="setActive($event.target.value)" class="border-gray-300 focus:border-indigo-500 :border-indigo-600 focus:ring-indigo-500 :ring-indigo-600 rounded-md shadow-sm mt-1 block w-full">
-                <option value="null" disabled selected>---</option>
+                <option value="null" disabled {{ $active ? null : 'selected' }}>---</option>
 
                 @foreach(\App\Models\User::all() as $user)
-                    <option value="{{ $user->id }}" wire:key="{{ $user->id }}">{{ $user->name }}</option>
+                    <option value="{{ $user->id }}" wire:key="{{ $user->id }}" {{ $active === $user->id ? 'selected' : null }}>{{ $user->name }}</option>
                 @endforeach
             </select>
         </label>
