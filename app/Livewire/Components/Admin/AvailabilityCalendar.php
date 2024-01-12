@@ -32,7 +32,7 @@ class AvailabilityCalendar extends Calendar
         $availability = $user->availability()
             ->where("available_start_datetime", "<=", $dayEnd)
             ->where("available_end_datetime", ">=", $dayStart)
-            ->dd();
+            ->ddRawSql();
 
         return $availability->mapWithKeys(function ($slot){
             return [$slot->available_start_datetime->format("H:i:s") => [
