@@ -1,5 +1,5 @@
 <div class="mx-40 my-6">
-    <div class="flex justify-between mb-6">
+    <div class="flex justify-between mb-6 bg-gray-300">
         <div>
             <img src="#" alt="Logo">
         </div>
@@ -12,15 +12,13 @@
             </button>
         </div>
     </div>
-    <div class="p-2 border border-black rounded-t-3xl bg-primary-gradient">
-        <div class="relative after:border after:border-black after:absolute after:rounded-t-3xl after:shadow-[inset_8px_8px_30px_-5px_#000] after:block after:top-0 after:w-full after:h-full">
-            <picture>
-                <source type="image/webp" srcset="{{ asset('images/sample_bakcground.webp') }}">
-                <img class="rounded-t-3xl" src="{{ asset('images/sample_bakcground.png') }}" alt="background" >
-            </picture>
-        </div>
+    <div class="relative after:absolute after:shadow-[inset_0px_0px_8px_16px_#FFF] after:block after:-top-1 after:-bottom-1 after:-left-1 after:-right-1">
+        <picture>
+            <source type="image/webp" srcset="{{ asset('images/sample_bakcground.webp') }}">
+            <img src="{{ asset('images/sample_bakcground.png') }}" alt="background" >
+        </picture>
     </div>
-    <div class="relative z-10 grid grid-cols-4 gap-6 p-6 -mt-6 bg-white border border-black shadow-md shadow-gray-600 rounded-3xl">
+    <div class="relative grid grid-cols-3 gap-14 p-6">
         @foreach ($services as $key => $service)
             <livewire:pages.front.service-single :$service :$key />
         @endforeach

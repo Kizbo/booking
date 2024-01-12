@@ -92,10 +92,6 @@ class ReservationForm extends Component
         $this->notify((new ReservationReminder())->delay($delay));
     }
 
-    private function chooseUser()
-    {
-    }
-
     public function render()
     {
         return view('livewire.pages.front.reservation-form');

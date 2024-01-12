@@ -2,8 +2,6 @@
 
 namespace App\Livewire\Components;
 
-use App\Models\Service;
-use App\Models\UserAvailability;
 use \Carbon\Carbon;
 use Livewire\Component;
 
@@ -42,11 +40,6 @@ abstract class Calendar extends Component
     public function render()
     {
         return view('livewire.pages.front.calendar');
-    }
-
-    public function getJsStartWeek()
-    {
-        return $this->startWeek->format('Y-m-d\TH:i:s.uP');
     }
 
     public function changeAvailabilityWeek(bool $next = true)

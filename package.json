@@ -18,6 +18,7 @@
     "dependencies": {
         "fullcalendar": "^6.1.10",
         "moment": "^2.29.4",
-        "simple-datatables": "^9.0.0"
+        "simple-datatables": "^9.0.0",
+        "tippy.js": "^6.3.7"
     }
 }
