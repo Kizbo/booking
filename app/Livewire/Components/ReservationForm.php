@@ -10,7 +10,7 @@ use App\Models\Reservation;
 use Carbon\Carbon;
 use Livewire\Attributes\Validate;
 use Illuminate\Support\Facades\Mail;
-use App\Mail\ReservationSaved;
+use App\Notifications\ReservationSaved;
 use App\Notifications\ReservationReminder;
 use Illuminate\Notifications\Notifiable;
 
@@ -72,7 +72,7 @@ class ReservationForm extends Component
         $customer = Customer::create($customerData);
 
         if ($this->chosenUser == 'any')
-            $this->chooseUser();
+            $this->chosenUser = $this->chooseUser();
         else
             $this->chosenUser = intval($this->chosenUser);
 
@@ -85,17 +85,18 @@ class ReservationForm extends Component
             'reservation_datetime' => $this->datetime->toDateTime()
         ]);
 
-        //TODO: Send this mail as notifiaction and change notification templates because they are preatty
-        Mail::to($this->email)->send(new ReservationSaved());
+        $this->notifyNow((new ReservationSaved($this->datetime, $this->service)));
         $this->datetime->subDay();
-        if( Carbon::now() < $this->datetime ) {
-            $this->notify((new ReservationReminder())->delay($this->datetime));
+        if (Carbon::now() < $this->datetime) {
+            $this->notify((new ReservationReminder($this->datetime, $this->service))->delay($this->datetime));
         }
+        $this->datetime->addDay();
 
-        $this->dispatch('openModal', 'reservation-saved', ['datetime' => $this->datetime]);
+        $this->dispatch('openModal', 'reservation-saved', ['datetime' => $this->datetime->timestamp]);
     }
 
-    private function chooseUser() {
+    private function chooseUser()
+    {
         //TODO: Choose worker automatically if none was specified
     }
 

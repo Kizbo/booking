@@ -10,7 +10,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\HtmlString;
 
-class ReservationReminder extends Notification implements ShouldQueue
+class ReservationSaved extends Notification implements ShouldQueue
 {
     use Queueable;
 
@@ -37,9 +37,9 @@ class ReservationReminder extends Notification implements ShouldQueue
     public function toMail(object $notifiable): MailMessage
     {
         return (new MailMessage)
-            ->subject("Przypomnienie o wizycie")
-            ->greeting("Przypomnienie o wizycie")
-            ->line(new HtmlString("Przypominamy o dokonanej rezerwacji na usługę:<br><b>" . $this->service->name . "</b>"))
+            ->subject("Potwierdzenie rezerwacji")
+            ->greeting("Potwierdzenie rezerwacji")
+            ->line(new HtmlString("Potwierdzamy przyjęcię twojej rezerwacji na usługę:<br><b>" . $this->service->name . "</b>"))
             ->line(new HtmlString("Dnia: <b>" . $this->datetime->format('d.m.Y') . "</b>"))
             ->line(new HtmlString("O godzinie: <b>" . $this->datetime->format('G:i') . "</b>"))
             ->line("Dziękujemy za korzystanie z naszych usług!")

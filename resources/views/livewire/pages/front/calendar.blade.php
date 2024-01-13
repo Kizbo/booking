@@ -8,8 +8,14 @@
             background-color: #2966a1;
             cursor: pointer;
         }
+
+        .calendar-wrapper {
+            min-width: 720px;
+        }
     </style>
-    <div id="calendar" wire:ignore></div>
+    <div class="calendar-wrapper">
+        <div id="calendar" wire:ignore></div>
+    </div>
     <div wire:loading.flex style="{{$displayLoader}}" class="absolute top-0 left-0 z-10 items-center justify-center w-full h-full bg-gray-600/70">
         <svg class="w-5 h-5 text-white animate-spin" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
             <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
@@ -135,7 +141,6 @@
         firstDay: today.getDay(),
         events: mapAvailability(),
     });
-    console.log($wire.startWeek);
     calendarObj.render();
     $wire.hideLoader();
 

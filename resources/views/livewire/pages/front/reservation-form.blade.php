@@ -7,9 +7,9 @@
     $disabledInputClasses = $users === null ? "bg-gray-100 pointer-events-none" : "";
     $disabledLabelClasses = $users === null ? "pointer-events-none" : "";
 @endphp
-<div class="p-5">
+<div class="py-5 lg:px-5">
     <div class="p-6 mb-6 rounded shadow-md shadow-gray-600">
-        <h2 class="mb-4 text-lg font-bold" wire:click="$dispatch('openModal', {component: 'reservation-saved', arguments: {}})">Informacje o usłudze</h2>
+        <h2 class="mb-4 text-lg font-bold">Informacje o usłudze</h2>
         <h3 class="font-bold">Nazwa usługi:</h3>
         <p>{{$service->name}}</p>
         <h3 class="font-bold">Czas trwania usługi:</h3>
@@ -70,8 +70,8 @@
             </div>
             @isset($users)
                 <div class="flex flex-col items-center mt-4">
-                    <p>Data rezerwacji: {{$datetime->format('d.m.Y')}}</p>
-                    <p>Godzina rezerwacji: {{$datetime->format('G:i')}}</p>
+                    <p>Data rezerwacji: <span class="font-bold">{{$datetime->format('d.m.Y')}}</span></p>
+                    <p>Godzina rezerwacji: <span class="font-bold">{{$datetime->format('G:i')}}</span></p>
                 </div>
             @endisset
             <div class="flex justify-end mt-4">
