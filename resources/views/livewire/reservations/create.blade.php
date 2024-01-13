@@ -13,7 +13,8 @@ new class extends Component {
     {
         $result = $this->form->store();
 
-        $this->redirectRoute("admin.dashboard", ['activeUser' => $result->user->id]);
+        if($result)
+            $this->redirectRoute("admin.dashboard", ['activeUser' => $result->user->id]);
     }
 
     #[Computed]

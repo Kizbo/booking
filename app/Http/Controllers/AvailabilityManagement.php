@@ -20,4 +20,13 @@ class AvailabilityManagement extends Controller
 
         return view("pages.availability.create", ['user' => $user]);
     }
+
+    public function delete(UserAvailability $availability)
+    {
+        $this->authorize("manipulate", UserAvailability::class);
+
+        $availability->delete();
+
+        return redirect()->route("admin.availability", ['activeUser' => $availability->user->id]);
+    }
 }

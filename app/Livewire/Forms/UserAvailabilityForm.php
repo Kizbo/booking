@@ -35,7 +35,7 @@ class UserAvailabilityForm extends Form
         $this->user = $user;
     }
 
-    public function save()
+    public function store()
     {
         $this->resetErrorBag();
         $this->validate();
@@ -64,6 +64,7 @@ class UserAvailabilityForm extends Form
         }
 
         $this->availability->fill($this->only(['available_end_datetime', 'available_start_datetime']));
+
         $this->availability->user()->associate($this->user);
 
         $this->availability->save();
@@ -71,8 +72,8 @@ class UserAvailabilityForm extends Form
         return $this->availability;
     }
 
-    public function create()
+    public function save()
     {
-        $this->save();
+        return $this->store();
     }
 }

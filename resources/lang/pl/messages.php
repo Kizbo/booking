@@ -53,5 +53,6 @@ return [
     'shift-must-be-one-day' => 'Początek i koniec zmiany musi zawierać się w tym samym dniu',
     'start-later-than-end' => "Początek zmiany musi być wcześniej niż jej koniec",
     'create-reservation' => 'Stwórz nową rezerwację',
-    'worker' => 'Pracownik'
+    'worker' => 'Pracownik',
+    'edit-availability' => "Edytuj grafik"
 ];

@@ -26,7 +26,7 @@ new class extends Component {
     {
         $this->authorize("manipulate", \App\Models\UserAvailability::class);
 
-        $result = $this->form->save();
+        $result = $this->form->store();
 
         if($result)
             $this->redirectRoute("admin.availability", ['activeUser' => $this->user->id]);

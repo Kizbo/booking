@@ -35,6 +35,8 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::get("reservations/delete/{reservation}", [ReservationsManagement::class, 'delete'])->name("reservations.delete");
 
     Route::get('availability/create/{user}', [AvailabilityManagement::class, "create"])->name("availability.create");
+    Route::get("availability/edit/{availability}", [AvailabilityManagement::class, "edit"])->name("availability.edit");
+    Route::get("availability/delete/{availability}", [AvailabilityManagement::class, 'delete'])->name("availability.delete");
 
     /** workers management */
     Route::middleware("can:manipulate,".\App\Models\User::class)->group(function (){

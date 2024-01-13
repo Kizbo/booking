@@ -60,6 +60,9 @@ class ReservationForm extends Form
 
         $newReservationEnd = Carbon::parse($this->reservation_datetime)->addMinutes($this->reservation->service->duration);
 
+        if($this->user_id !== $this->reservation->user_id)
+            $this->reservation->user_id = $this->user_id;
+
         $isWorkerAvailable = $this->reservation->user->availability
             ->where("available_end_datetime", ">=", $newReservationEnd)
             ->where("available_start_datetime", "<=", $this->reservation_datetime)
@@ -87,11 +90,13 @@ class ReservationForm extends Form
             $client = new Customer();
             $client->fill($this->only('first_name', 'last_name', 'phone_number', 'email'));
             $client->save();
+            $client = $client->fresh();
             $this->reservation->customer_id = $client->id;
         }
 
         $this->reservation->save();
-        $customer = Customer::find($this->reservation->id);
+        $this->reservation = $this->reservation->fresh();
+        $customer = Customer::find($this->reservation->customer_id);
         $customer->reservation_id = $this->reservation->id;
         $customer->save();
 

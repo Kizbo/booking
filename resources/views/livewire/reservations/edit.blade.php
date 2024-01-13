@@ -3,6 +3,7 @@
 use Livewire\Volt\Component;
 use App\Models\Reservation;
 use App\Livewire\Forms\ReservationForm;
+use Livewire\Attributes\Computed;
 
 new class extends Component {
 
@@ -28,6 +29,12 @@ new class extends Component {
         $this->dispatch("reservation-updated");
     }
 
+    #[Computed]
+    public function users()
+    {
+        return $this->reservation->service->users;
+    }
+
 }; ?>
 
 <section>
@@ -50,6 +57,16 @@ new class extends Component {
             <x-input-label for="name" :value="__('messages.reservation-datetime')"/>
             <x-text-input wire:model="form.reservation_datetime" id="reservation_datetime" name="reservation_datetime" type="datetime-local" class="mt-1 block w-full"/>
             <x-input-error :messages="$errors->get('form.reservation_datetime')" class="mt-2"/>
+        </div>
+
+        <div>
+            <x-input-label for="user_id" :value="__('messages.worker')"/>
+
+            <select id="user_id" wire:model.live.fill="form.user_id" class="border-gray-300 focus:border-indigo-500 :border-indigo-600 focus:ring-indigo-500 :ring-indigo-600 rounded-md shadow-sm mt-1 block w-full">
+                @foreach($this->users as $user)
+                    <option value="{{ $user->id }}" wire:key="{{ $user->id }}">{{ $user->name }}</option>
+                @endforeach
+            </select>
         </div>
 
         <div class="flex items-center gap-4">

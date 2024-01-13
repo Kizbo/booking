@@ -18,9 +18,9 @@ class AvailabilityCalendar extends Calendar
     /**
      * @inheritDoc
      */
-    public function chooseEvent(array $data)
+    public function chooseEvent(array $data): void
     {
-        dd($data);
+        $this->redirectRoute("admin.availability.edit", ['availability' => $data['data']['availabilityId']]);
     }
 
     protected function getTimeSlots(Carbon $day)
