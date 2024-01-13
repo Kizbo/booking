@@ -3,6 +3,7 @@
 namespace App\Livewire\Forms;
 
 use App\Models\Service;
+use Illuminate\Validation\ValidationException;
 use Livewire\Form;
 
 class ServiceForm extends Form
@@ -47,6 +48,10 @@ class ServiceForm extends Form
     public function save(): void
     {
         $this->validate();
+
+        if($this->service->reservations->isNotEmpty())
+            throw ValidationException::withMessages([$this->getPropertyName() . '.duration' => __("messages.cannot-edit-service-time-if-reservations-exists")]);
+
         $this->service->update($this->only(["name", "description", "duration", "price"]));
     }
 }

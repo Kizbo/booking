@@ -54,5 +54,6 @@ return [
     'start-later-than-end' => "Początek zmiany musi być wcześniej niż jej koniec",
     'create-reservation' => 'Stwórz nową rezerwację',
     'worker' => 'Pracownik',
-    'edit-availability' => "Edytuj grafik"
+    'edit-availability' => "Edytuj grafik",
+    'cannot-edit-service-time-if-reservations-exists' => "Nie można edytować usługi jeśli istnieją rezerwacje na tą usługę."
 ];
