@@ -39,7 +39,7 @@ class ReservationsCalendar extends Calendar
 
     public function chooseEvent(array $data)
     {
-        $this->redirectRoute("reservations.edit", ['reservation' => $data['data']['reservationId']]);
+        $this->redirectRoute("admin.reservations.edit", ['reservation' => $data['data']['reservationId']]);
     }
 
     public function selectCallback(array $data)

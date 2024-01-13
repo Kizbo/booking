@@ -30,7 +30,10 @@ Route::prefix("admin")->middleware(['auth'])->name("admin.")->group(function () 
     Route::view("settings", "pages.settings")->name("settings");
     Route::view('availability', 'pages.availability')->name('availability');
 
+    Route::get("reservations/create", [ReservationsManagement::class, "create"])->name("reservations.create");
     Route::get("reservations/edit/{reservation}", [ReservationsManagement::class, "edit"])->name("reservations.edit");
+    Route::get("reservations/delete/{reservation}", [ReservationsManagement::class, 'delete'])->name("reservations.delete");
+
     Route::get('availability/create/{user}', [AvailabilityManagement::class, "create"])->name("availability.create");
 
     /** workers management */

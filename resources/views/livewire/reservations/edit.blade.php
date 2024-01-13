@@ -53,11 +53,11 @@ new class extends Component {
         </div>
 
         <div class="flex items-center gap-4">
-            <x-primary-button>{{ __('messages.save') }}</x-primary-button>
-
             <x-action-message class="me-3" on="reservation-updated">
                 {{ __('messages.saved') }}
             </x-action-message>
+            <x-primary-button>{{ __('messages.save') }}</x-primary-button>
+            <x-admin.delete-button :href="route('admin.reservations.delete', ['reservation' => $reservation->id])">{{ __("messages.delete") }}</x-admin.delete-button>
         </div>
     </form>
 </section>

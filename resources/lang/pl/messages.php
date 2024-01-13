@@ -18,6 +18,7 @@ return [
     'update-worker-services' => 'Zaktualizuj usługi pracownika',
     'login' => 'Login',
     'services' => "Usługi",
+    'service' => "Usługa",
     'create-service' => 'Stwórz nową usługę',
     'services-list' => "Lista usług",
     "settings" => "Ustawienia",
@@ -50,5 +51,7 @@ return [
     'for-user' => "dla pracownika",
     'overlapping-shift-exists' => 'Dane parametry zmiany nachodzą na inną już zdefiniowaną zmianę',
     'shift-must-be-one-day' => 'Początek i koniec zmiany musi zawierać się w tym samym dniu',
-    'start-later-than-end' => "Początek zmiany musi być wcześniej niż jej koniec"
+    'start-later-than-end' => "Początek zmiany musi być wcześniej niż jej koniec",
+    'create-reservation' => 'Stwórz nową rezerwację',
+    'worker' => 'Pracownik'
 ];
