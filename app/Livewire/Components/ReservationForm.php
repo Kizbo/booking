@@ -77,6 +77,8 @@ class ReservationForm extends Component
             $this->chosenUser = intval($this->chosenUser);
 
         //TODO: double check if reservation time is available
+        //TODO: create resercation and customer using modal
+        //TODO: changing the library currency helpers to app settings
 
         Reservation::create([
             'customer_id' => $customer->id,
