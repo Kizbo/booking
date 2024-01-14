@@ -33,7 +33,7 @@ class AvailabilityCalendar extends Calendar
             ->where("available_start_datetime", "<=", $dayEnd)
             ->where("available_end_datetime", ">=", $dayStart);
 
-        return $availability->mapWithKeys(function ($slot){
+        return $availability->mapWithKeys(function ($slot) {
             return [$slot->available_start_datetime->format("H:i:s") => [
                 'endTime' => $slot->available_end_datetime->format("H:i:s"),
                 'data' => [
@@ -48,11 +48,12 @@ class AvailabilityCalendar extends Calendar
      */
     public function selectCallback(array $data): void
     {
-        $this->redirectRoute("admin.availability.create",
+        $this->redirectRoute(
+            "admin.availability.create",
             [
                 'user' => $this->userId,
-                'start' => $data['start'],
-                'end' => $data['end']
+                'start' => $data['startStr'],
+                'end' => $data['endStr']
             ]
         );
     }
