@@ -38,14 +38,14 @@
             <div class="flex gap-x-4">
                 <div class="flex flex-col flex-grow">
                     <label class="mt-4 font-bold {{$disabledLabelClasses}}" for="first_name">Imię</label>
-                    <input class="{{$firstNameError}} {{$disabledInputClasses}}" type="text" wire:model='firstName' id="first_name">
+                    <input class="{{$firstNameError}} {{$disabledInputClasses}}" required type="text" wire:model='firstName' id="first_name">
                     @error('firstName')
                         <p class="text-red-500">{{$message}}</p>
                     @enderror
                 </div>
                 <div class="flex flex-col flex-grow">
                     <label class="mt-4 font-bold {{$disabledLabelClasses}}" for="last_name">Nazwisko</label>
-                    <input class="{{$lastNameError}} {{$disabledInputClasses}}" type="text" wire:model='lastName' id="last_name">
+                    <input class="{{$lastNameError}} {{$disabledInputClasses}}" required type="text" wire:model='lastName' id="last_name">
                     @error('lastName')
                         <p class="text-red-500">{{$message}}</p>
                     @endif
@@ -55,14 +55,14 @@
             <div class="flex gap-x-4">
                 <div class="flex flex-col flex-grow">
                     <label class="mt-4 font-bold {{$disabledLabelClasses}}" for="phone_number">Numer telefonu</label>
-                    <input class="{{$phoneNumberError}} {{$disabledInputClasses}}" type="tel" wire:model='phoneNumber' id="phone_number">
+                    <input class="{{$phoneNumberError}} {{$disabledInputClasses}}" required type="tel" wire:model='phoneNumber' id="phone_number">
                     @error('phoneNumber')
                         <p class="text-red-500">{{$message}}</p>
                     @endif
                 </div>
                 <div class="flex flex-col flex-grow">
                     <label class="mt-4 font-bold {{$disabledLabelClasses}}" for="email">Adres email</label>
-                    <input class="{{$emailError}} {{$disabledInputClasses}}" type="email" wire:model='email' id="email">
+                    <input class="{{$emailError}} {{$disabledInputClasses}}" required type="email" wire:model='email' id="email">
                     @error('email')
                         <p class="text-red-500">{{$message}}</p>
                     @endif

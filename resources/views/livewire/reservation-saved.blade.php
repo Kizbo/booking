@@ -5,6 +5,6 @@
         Rezerwacja zapisana na dzień: <span class="font-bold">{{$datetimeObj->format('d.m.Y')}}</span>
     </p>
     <p>
-        Na godzinę: <span class="font-bold">{{$datetimeObj->format('G:i')}}</span>
+        O godzinie: <span class="font-bold">{{$datetimeObj->format('G:i')}}</span>
     </p>
 </div>

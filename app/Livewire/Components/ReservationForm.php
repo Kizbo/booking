@@ -86,11 +86,10 @@ class ReservationForm extends Component
         ]);
 
         $this->notifyNow((new ReservationSaved($this->datetime, $this->service)));
-        $this->datetime->subDay();
-        if (Carbon::now() < $this->datetime) {
-            $this->notify((new ReservationReminder($this->datetime, $this->service))->delay($this->datetime));
+        $reminderDate = clone ($this->datetime)->subDay();
+        if (Carbon::now() < $reminderDate) {
+            $this->notify((new ReservationReminder($this->datetime, $this->service))->delay($reminderDate));
         }
-        $this->datetime->addDay();
 
         $this->dispatch('openModal', 'reservation-saved', ['datetime' => $this->datetime->timestamp]);
     }
