@@ -13,11 +13,7 @@
                         {{ __("messages.create-reservation") }}
                     </a>
 
-                    @can("is-admin")
-                        <livewire:worker-calendar-selector calendar-type="components.admin.reservations-calendar" />
-                    @else
-                        <livewire:components.admin.reservations-calendar :user-id="Auth::user()->id" />
-                    @endcan
+                    <livewire:worker-calendar-selector calendar-type="components.admin.reservations-calendar" />
                 </div>
             </div>
         </div>
