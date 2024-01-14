@@ -14,6 +14,7 @@ new class extends Component {
     public function mount()
     {
         $this->form->setReservation($this->reservation);
+        $this->form->user_id = $this->reservation->user_id;
     }
 
     public function editReservation(): void
