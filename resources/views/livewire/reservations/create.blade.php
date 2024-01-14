@@ -17,6 +17,12 @@ new class extends Component {
             $this->redirectRoute("admin.dashboard", ['activeUser' => $result->user->id]);
     }
 
+    public function updated($property, $value)
+    {
+        if($property === 'form.service_id')
+            $this->form->user_id = $this->users()->first()->id;
+    }
+
     #[Computed]
     public function users()
     {
